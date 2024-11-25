@@ -17,7 +17,7 @@ link: bin/main.o bin/Settlement.o bin/Auxiliary.o bin/Simulation.o
 run: bin/main
 	@echo "Running the program..."
 	./bin/main config_file.txt
-	clear
+
 
 clean:
 	@echo "Cleaning binaries..."
