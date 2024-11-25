@@ -10,7 +10,13 @@ enum class SettlementType {
     VILLAGE,
     CITY,
     METROPOLIS,
+
+
+    
+    
+
 };
+
 
 class Settlement {
     public:
