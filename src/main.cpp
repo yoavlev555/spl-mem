@@ -19,7 +19,7 @@ int main(int argc, char** argv){
     // 	backup = nullptr;
     // }
 
-    Settlement* test = new Settlement("test", SettlementType::VILLAGE);
-    cout << (*test).toString() << endl;
+    Settlement* test = new Settlement("I am a test", SettlementType::VILLAGE);
+    cout << Settlement::SettlementTypeToString(test -> getType()) << endl;
     return 0;
 }

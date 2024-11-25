@@ -10,11 +10,6 @@ enum class SettlementType {
     VILLAGE,
     CITY,
     METROPOLIS,
-
-
-    
-    
-
 };
 
 
@@ -24,6 +19,7 @@ class Settlement {
         const string &getName() const;
         SettlementType getType() const;
         const string toString() const;
+        static string SettlementTypeToString (SettlementType s);
 
         private:
             const string name;
