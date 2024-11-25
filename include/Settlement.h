@@ -16,13 +16,13 @@ enum class SettlementType {
 class Settlement {
     public:
         Settlement(const string &name, SettlementType type);
+        Settlement(const Settlement& other);
+        ~Settlement();
         const string &getName() const;
         SettlementType getType() const;
         const string toString() const;
         static string SettlementTypeToString (SettlementType s);
-        ~Settlement();
         void operator=(const Settlement& other);
-        Settlement(const Settlement& other);
 
 
         private:
