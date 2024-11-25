@@ -20,6 +20,10 @@ class Settlement {
         SettlementType getType() const;
         const string toString() const;
         static string SettlementTypeToString (SettlementType s);
+        ~Settlement();
+        void operator=(const Settlement& other);
+        Settlement(const Settlement& other);
+
 
         private:
             const string name;

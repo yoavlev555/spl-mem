@@ -20,6 +20,13 @@ int main(int argc, char** argv){
     // }
 
     Settlement* test = new Settlement("I am a test", SettlementType::VILLAGE);
-    cout << Settlement::SettlementTypeToString(test -> getType()) << endl;
+    Settlement* test2 = new Settlement("Bilski the king", SettlementType::METROPOLIS);
+    Settlement* test3 = new Settlement(*test2);
+    cout << test3->toString()<< endl;
+
+    *test3 = *test;
+    cout << test3->toString()<< endl;
+    cout << test2->toString()<< endl;
+
     return 0;
 }

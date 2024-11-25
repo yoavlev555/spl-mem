@@ -16,11 +16,25 @@ string Settlement::SettlementTypeToString (SettlementType s)
     }
 }
 
-
+// Constructors
 Settlement::Settlement(const string& otherName, SettlementType otherType): name(otherName), type(otherType){}
+Settlement::Settlement(const Settlement& other): name(other.name), type(other.type){}
+
+// Destructor
+Settlement::~Settlement(){} // do default destructor
+
+// Operators
+void Settlement::operator=(const Settlement& other){
+    if(this != &other){
+        type = other.type;
+    }
+}
+
+
 const string& Settlement::getName() const {
     return name;
 }
+
 
 SettlementType Settlement::getType() const {
     return type;
