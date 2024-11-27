@@ -5,7 +5,7 @@
 NaiveSelection::NaiveSelection():lastSelectedIndex(0){};
 NaiveSelection::NaiveSelection(const NaiveSelection& other):lastSelectedIndex(other.lastSelectedIndex){}
 
-// Destructor
+// Destructor (Default)
 
 
 // Operators
