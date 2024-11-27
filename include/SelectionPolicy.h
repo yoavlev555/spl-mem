@@ -29,10 +29,14 @@ class NaiveSelection: public SelectionPolicy {
 class BalancedSelection: public SelectionPolicy {
     public:
         BalancedSelection(int LifeQualityScore, int EconomyScore, int EnvironmentScore);
+        BalancedSelection(const BalancedSelection& other);
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
         BalancedSelection *clone() const override;
         ~BalancedSelection() override = default;
+        int checkDiff(int lifeScore, int economyScore, int environmentScore);
+        BalancedSelection& operator=(const BalancedSelection& other);
+
     private:
         int LifeQualityScore;
         int EconomyScore;

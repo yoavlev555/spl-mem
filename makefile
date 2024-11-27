@@ -3,7 +3,7 @@
 
 all: clean compile link run 
 
-compile: src/main.cpp src/Auxiliary.cpp src/Settlement.cpp src/Simulation.cpp src/FacilityType.cpp src/Facility.cpp src/NaiveSelection.cpp BalancedSelection.cpp EconomySelection.cpp SustainabilitySelection.cpp
+compile: src/main.cpp src/Auxiliary.cpp src/Settlement.cpp src/Simulation.cpp src/FacilityType.cpp src/Facility.cpp src/NaiveSelection.cpp src/BalancedSelection.cpp src/EconomySelection.cpp src/SustainabilitySelection.cpp
 	@echo "Compiling sources..."
 	g++ -g -Wall -Weffc++ -c -Iinclude -std=c++11 -o bin/main.o src/main.cpp
 	g++ -g -Wall -Weffc++ -c -Iinclude -std=c++11 -o bin/Settlement.o src/Settlement.cpp
@@ -17,9 +17,9 @@ compile: src/main.cpp src/Auxiliary.cpp src/Settlement.cpp src/Simulation.cpp sr
 	g++ -g -Wall -Weffc++ -c -Iinclude -std=c++11 -o bin/SustainabilitySelection.o src/SustainabilitySelection.cpp
 
 
-link: bin/main.o bin/Settlement.o bin/Auxiliary.o bin/Simulation.o bin/FacilityType.o bin/Facility.o bin/NaiveSelection.o BalancedSelection.o EconomySelection.o SustainabilitySelection.o
+link: bin/main.o bin/Settlement.o bin/Auxiliary.o bin/Simulation.o bin/FacilityType.o bin/Facility.o bin/NaiveSelection.o bin/BalancedSelection.o bin/EconomySelection.o bin/SustainabilitySelection.o
 	@echo "Linking object files..."
-	g++ -o bin/main bin/main.o bin/Settlement.o bin/Auxiliary.o bin/Simulation.o bin/FacilityType.o bin/Facility.o bin/NaiveSelection.o BalancedSelection.o EconomySelection.o SustainabilitySelection.o
+	g++ -o bin/main bin/main.o bin/Settlement.o bin/Auxiliary.o bin/Simulation.o bin/FacilityType.o bin/Facility.o bin/NaiveSelection.o bin/BalancedSelection.o bin/EconomySelection.o bin/SustainabilitySelection.o
 
 run: bin/main
 	@echo "Running the program..."
