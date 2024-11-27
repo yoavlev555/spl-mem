@@ -9,7 +9,7 @@ FacilityType::FacilityType(const FacilityType& other):name(other.name), category
 FacilityType::~FacilityType(){} // No pointers - do default.
 
 // Operators
-void FacilityType::operator=(const FacilityType& other) {} // All const - do default.
+FacilityType& FacilityType::operator=(const FacilityType& other) {} // All const - do default.
 
 // Getters
 const string& FacilityType::getName() const {return name;}

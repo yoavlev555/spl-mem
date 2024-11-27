@@ -24,10 +24,12 @@ Settlement::Settlement(const Settlement& other): name(other.name), type(other.ty
 Settlement::~Settlement(){} // do default destructor
 
 // Operators
-void Settlement::operator=(const Settlement& other){
+Settlement& Settlement::operator=(const Settlement& other){
     if(this != &other){
         type = other.type;
     }
+    
+    return *this;
 }
 
 

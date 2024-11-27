@@ -19,12 +19,29 @@ int main(int argc, char** argv){
     // 	backup = nullptr;
     // }
 
-    Settlement* test = new Settlement("I am a test", SettlementType::VILLAGE);
-    Settlement* test2 = new Settlement("Bilski the king", SettlementType::METROPOLIS);
-    Settlement* test3 = new Settlement(*test2);
-    FacilityType f = FacilityType("FAC1",FacilityCategory::ECONOMY,23,4,1,64);
+FacilityType *ftype = new FacilityType("Gan Yavne", FacilityCategory::LIFE_QUALITY, 2, 1, 1, 3);
+Facility *facility = new Facility(*ftype, "Hara Tahor");
 
-    f.getName() = string("a;sldkjfas");
-    cout << f.getName() << endl;
+FacilityType *facility1 = new FacilityType("Gardens of Hope", FacilityCategory::ENVIRONMENT, 19,31,11,10);
+Facility *facilityOp = new Facility(*facility1, "thats some good shit");
+
+
+cout<<facility->toString()<<endl;
+cout<<facilityOp->toString()<<endl;
+
+
+facilityOp->setStatus(FacilityStatus::OPERATIONAL);
+cout<<facilityOp->toString()<<endl;
+
+*facility = *facilityOp;
+
+cout<<facility->toString()<<endl;
+cout<<facilityOp->toString()<<endl;
+/*
+operator=
+toString()*
+
+*/
+
     return 0;
 }

@@ -21,7 +21,7 @@ class FacilityType {
         FacilityType(const string &name, const FacilityCategory category, const int price, const int lifeQuality_score, const int economy_score, const int environment_score);
         FacilityType(const FacilityType& other);
         ~FacilityType();
-        void operator=(const FacilityType& other);
+        FacilityType& operator=(const FacilityType& other);
         const string& getName() const ;
         int getCost() const;
         int getLifeQualityScore() const;
@@ -30,21 +30,22 @@ class FacilityType {
         FacilityCategory getCategory() const;
 
     protected:
-         string name;
-         FacilityCategory category;
-         int price;
-         int lifeQuality_score;
-         int economy_score;
-         int environment_score;
+        const string name;
+        const FacilityCategory category;
+        const int price;
+        const int lifeQuality_score;
+        const int economy_score;
+        const int environment_score;
 };
 
-
-// check const function and implement this :
 class Facility: public FacilityType {
 
     public:
         Facility(const string &name, const string &settlementName, const FacilityCategory category, const int price, const int lifeQuality_score, const int economy_score, const int environment_score);
         Facility(const FacilityType &type, const string &settlementName);
+        Facility(const Facility& other);
+        ~Facility();
+        Facility& operator=(const Facility& other);
         const string &getSettlementName() const;
         const int getTimeLeft() const;
         FacilityStatus step();
