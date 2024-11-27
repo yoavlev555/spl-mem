@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "Facility.h"
 using std::vector;
+using std::string;
 
 class SelectionPolicy {
     public:
@@ -14,10 +16,12 @@ class SelectionPolicy {
 class NaiveSelection: public SelectionPolicy {
     public:
         NaiveSelection();
+        NaiveSelection(const NaiveSelection& other);
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
         NaiveSelection *clone() const override;
         ~NaiveSelection() override = default;
+        NaiveSelection& operator=(const NaiveSelection& other);
     private:
         int lastSelectedIndex;
 };
