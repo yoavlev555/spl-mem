@@ -18,11 +18,11 @@ class Settlement {
         Settlement(const string &name, SettlementType type);
         Settlement(const Settlement& other);
         ~Settlement();
+        Settlement& operator=(const Settlement& other);
         const string &getName() const;
         SettlementType getType() const;
         const string toString() const;
         static string SettlementTypeToString (SettlementType s);
-        void operator=(const Settlement& other);
 
 
         private:
