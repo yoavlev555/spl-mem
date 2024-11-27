@@ -3,7 +3,7 @@
 
 all: clean compile link run 
 
-compile: src/main.cpp src/Auxiliary.cpp src/Settlement.cpp src/Simulation.cpp src/FacilityType.cpp src/Facility.cpp
+compile: src/main.cpp src/Auxiliary.cpp src/Settlement.cpp src/Simulation.cpp src/FacilityType.cpp src/Facility.cpp src/SelectionPolicy.cpp
 	@echo "Compiling sources..."
 	g++ -g -Wall -Weffc++ -c -Iinclude -std=c++11 -o bin/main.o src/main.cpp
 	g++ -g -Wall -Weffc++ -c -Iinclude -std=c++11 -o bin/Settlement.o src/Settlement.cpp
@@ -11,10 +11,11 @@ compile: src/main.cpp src/Auxiliary.cpp src/Settlement.cpp src/Simulation.cpp sr
 	g++ -g -Wall -Weffc++ -c -Iinclude -std=c++11 -o bin/Simulation.o src/Simulation.cpp
 	g++ -g -Wall -Weffc++ -c -Iinclude -std=c++11 -o bin/FacilityType.o src/FacilityType.cpp
 	g++ -g -Wall -Weffc++ -c -Iinclude -std=c++11 -o bin/Facility.o src/Facility.cpp
+	g++ -g -Wall -Weffc++ -c -Iinclude -std=c++11 -o bin/SelectionPolicy.o src/SelectionPolicy.cpp
 
-link: bin/main.o bin/Settlement.o bin/Auxiliary.o bin/Simulation.o bin/FacilityType.o bin/Facility.o
+link: bin/main.o bin/Settlement.o bin/Auxiliary.o bin/Simulation.o bin/FacilityType.o bin/Facility.o bin/SelectionPolicy.o
 	@echo "Linking object files..."
-	g++ -o bin/main bin/main.o bin/Settlement.o bin/Auxiliary.o bin/Simulation.o bin/FacilityType.o bin/Facility.o
+	g++ -o bin/main bin/main.o bin/Settlement.o bin/Auxiliary.o bin/Simulation.o bin/FacilityType.o bin/Facility.o bin/SelectionPolicy.o
 
 run: bin/main
 	@echo "Running the program..."

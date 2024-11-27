@@ -19,29 +19,20 @@ int main(int argc, char** argv){
     // 	backup = nullptr;
     // }
 
-FacilityType *ftype = new FacilityType("Gan Yavne", FacilityCategory::LIFE_QUALITY, 2, 1, 1, 3);
-Facility *facility = new Facility(*ftype, "Hara Tahor");
+    vector<FacilityType> ft = vector<FacilityType>();
+    ft.push_back(FacilityType("Hospital",FacilityCategory::LIFE_QUALITY,6,9,5,3));
+    ft.push_back(FacilityType("Terner Stadium",FacilityCategory::LIFE_QUALITY,12,9,9,0));
+    ft.push_back(FacilityType("Water Disinffection",FacilityCategory::ENVIRONMENT,2,4,10,8));
 
-FacilityType *facility1 = new FacilityType("Gardens of Hope", FacilityCategory::ENVIRONMENT, 19,31,11,10);
-Facility *facilityOp = new Facility(*facility1, "thats some good shit");
+    NaiveSelection ns = NaiveSelection();
+    cout<< ns.selectFacility(ft).getName() + " " << endl;
+    cout << ns.toString() << endl;
+    NaiveSelection* newNS = new NaiveSelection(ns);
+    cout<< newNS->selectFacility(ft).getName() + " " << endl;
+    cout << ns.toString() << endl;
+    cout << newNS->toString() << endl;
 
 
-cout<<facility->toString()<<endl;
-cout<<facilityOp->toString()<<endl;
-
-
-facilityOp->setStatus(FacilityStatus::OPERATIONAL);
-cout<<facilityOp->toString()<<endl;
-
-*facility = *facilityOp;
-
-cout<<facility->toString()<<endl;
-cout<<facilityOp->toString()<<endl;
-/*
-operator=
-toString()*
-
-*/
 
     return 0;
 }
