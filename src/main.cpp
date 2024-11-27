@@ -22,11 +22,9 @@ int main(int argc, char** argv){
     Settlement* test = new Settlement("I am a test", SettlementType::VILLAGE);
     Settlement* test2 = new Settlement("Bilski the king", SettlementType::METROPOLIS);
     Settlement* test3 = new Settlement(*test2);
-    cout << test3->toString()<< endl;
+    FacilityType f = FacilityType("FAC1",FacilityCategory::ECONOMY,23,4,1,64);
 
-    *test3 = *test;
-    cout << test3->toString()<< endl;
-    cout << test2->toString()<< endl;
-
+    f.getName() = string("a;sldkjfas");
+    cout << f.getName() << endl;
     return 0;
 }
