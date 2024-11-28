@@ -1,12 +1,10 @@
 #include "SelectionPolicy.h"
 
-
 // Constructors
 NaiveSelection::NaiveSelection():lastSelectedIndex(0){};
 NaiveSelection::NaiveSelection(const NaiveSelection& other):lastSelectedIndex(other.lastSelectedIndex){}
 
-// Destructor (Default)
-
+// Destructor - use default, not needed
 
 // Operators
 NaiveSelection& NaiveSelection::operator=(const NaiveSelection& other){
@@ -16,7 +14,6 @@ NaiveSelection& NaiveSelection::operator=(const NaiveSelection& other){
 
     return *this;
 }
-
 
 // Overrides
 const FacilityType& NaiveSelection::selectFacility(const vector<FacilityType>& facilitiesOptions){
@@ -29,7 +26,6 @@ const FacilityType& NaiveSelection::selectFacility(const vector<FacilityType>& f
 NaiveSelection* NaiveSelection::clone() const{
     return new NaiveSelection(*this);
 }
-
 
 const string NaiveSelection::toString() const{
     return "last selected index is: " + std::to_string(lastSelectedIndex);

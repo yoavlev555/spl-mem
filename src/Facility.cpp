@@ -13,14 +13,13 @@ Facility::Facility(const FacilityType &type, const string &settlementName)
 Facility::Facility(const Facility& other)
 :FacilityType(other.name,other.category,other.price,other.lifeQuality_score,other.economy_score,other.environment_score),settlementName(other.settlementName), timeLeft(other.price), status(other.status){}
 
-// Destructor
-Facility::~Facility(){} // Use default. Calls automaticly to ~FacilityType
+// Destructor Use default. Calls automaticly to ~FacilityType
 
 // Operators
 Facility& Facility::operator=(const Facility& other){ // We will never use this as this is makes no sense to assign another timeLeft or status to another facility.
     if(this != &other){
         timeLeft = other.timeLeft;
-        status = other.status;
+        status = other.status; 
     }
 
     return *this;
