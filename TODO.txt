@@ -1,4 +1,9 @@
+TDL
 implement step (at Facility.cpp)
 implement simulateStep (Simulation.cpp)
- Continue Balanced Economy Selection
- Conitinue Sustainability Selection Policy.
+
+
+General
+Check why did we need Clone in Selection Policies
+Decide if we should remove unnecessary RO3 implementation
+

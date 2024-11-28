@@ -20,8 +20,7 @@ string Settlement::SettlementTypeToString (SettlementType s)
 Settlement::Settlement(const string& otherName, SettlementType otherType): name(otherName), type(otherType){}
 Settlement::Settlement(const Settlement& other): name(other.name), type(other.type){}
 
-// Destructor
-Settlement::~Settlement(){} // do default destructor
+// Destructor do default destructor
 
 // Operators
 Settlement& Settlement::operator=(const Settlement& other){

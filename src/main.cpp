@@ -1,5 +1,6 @@
 #include "Simulation.h"
 #include "Settlement.h"
+#include "SelectionPolicy.h"
 #include <iostream>
 
 using namespace std;
@@ -19,18 +20,50 @@ int main(int argc, char** argv){
     // 	backup = nullptr;
     // }
 
-    vector<FacilityType> ft = vector<FacilityType>();
-    ft.push_back(FacilityType("Hospital",FacilityCategory::LIFE_QUALITY,6,9,5,3));
-    ft.push_back(FacilityType("Terner Stadium",FacilityCategory::LIFE_QUALITY,12,9,9,0));
-    ft.push_back(FacilityType("Water Disinffection",FacilityCategory::ENVIRONMENT,2,4,10,8));
+    /*class BalancedSelection: public SelectionPolicy {
+    public:
+        BalancedSelection(int LifeQualityScore, int EconomyScore, int EnvironmentScore);
+        BalancedSelection(const BalancedSelection& other);
+        const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
+        const string toString() const override;
+        BalancedSelection *clone() const override;
+        ~BalancedSelection() override = default;
+        int checkDiff(int lifeScore, int economyScore, int environmentScore);
+        BalancedSelection& operator=(const BalancedSelection& other);
 
-    NaiveSelection ns = NaiveSelection();
-    cout<< ns.selectFacility(ft).getName() + " " << endl;
-    cout << ns.toString() << endl;
-    NaiveSelection* newNS = new NaiveSelection(ns);
-    cout<< newNS->selectFacility(ft).getName() + " " << endl;
-    cout << ns.toString() << endl;
-    cout << newNS->toString() << endl;
+    private:
+        int LifeQualityScore;
+        int EconomyScore;
+        int EnvironmentScore;
+};
+*/
+
+
+
+
+    vector<FacilityType> ft = vector<FacilityType>();
+    ft.push_back(FacilityType("Desalination Plant",FacilityCategory::ECONOMY,2,2,1,2));
+    ft.push_back(FacilityType("Kindergarten",FacilityCategory::ECONOMY,12,1,0,0));
+    ft.push_back(FacilityType("Hospital",FacilityCategory::ECONOMY,6,3,1,2));
+    ft.push_back(FacilityType("1",FacilityCategory::ECONOMY,12,1,0,0));
+    ft.push_back(FacilityType("2",FacilityCategory::ECONOMY,12,1,0,0));
+    ft.push_back(FacilityType("3",FacilityCategory::ECONOMY,12,1,0,0));
+
+    SustainabilitySelection general = (SustainabilitySelection());
+    cout << general.selectFacility(ft).getName() << endl;
+    cout << general.selectFacility(ft).getName() << endl;
+    cout << general.selectFacility(ft).getName() << endl;    
+    cout << general.selectFacility(ft).getName() << endl;
+    cout << general.selectFacility(ft).getName() << endl;
+    cout << general.selectFacility(ft).getName() << endl;
+    cout << general.selectFacility(ft).getName() << endl;
+    cout << general.selectFacility(ft).getName() << endl;
+    cout << general.selectFacility(ft).getName() << endl;
+    cout << general.selectFacility(ft).getName() << endl;
+    cout << general.selectFacility(ft).getName() << endl;
+
+
+
 
 
 

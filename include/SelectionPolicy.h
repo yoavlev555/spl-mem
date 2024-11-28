@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <iostream>
 #include "Facility.h"
 using std::vector;
 using std::string;
@@ -46,6 +47,8 @@ class BalancedSelection: public SelectionPolicy {
 class EconomySelection: public SelectionPolicy {
     public:
         EconomySelection();
+        EconomySelection(const EconomySelection& other);        
+        EconomySelection& operator=(const EconomySelection& other);
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
         EconomySelection *clone() const override;
@@ -58,6 +61,8 @@ class EconomySelection: public SelectionPolicy {
 class SustainabilitySelection: public SelectionPolicy {
     public:
         SustainabilitySelection();
+        SustainabilitySelection(const SustainabilitySelection& other);        
+        SustainabilitySelection& operator=(const SustainabilitySelection& other);
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
         SustainabilitySelection *clone() const override;
