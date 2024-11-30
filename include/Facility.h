@@ -44,6 +44,7 @@ class Facility: public FacilityType {
         Facility(const FacilityType &type, const string &settlementName);
         Facility(const Facility& other);
         Facility& operator=(const Facility& other);
+        Facility* clone();
         const string &getSettlementName() const;
         const int getTimeLeft() const;
         FacilityStatus step();

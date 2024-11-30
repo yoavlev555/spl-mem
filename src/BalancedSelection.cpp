@@ -24,7 +24,7 @@ BalancedSelection* BalancedSelection::clone() const{
 
 const FacilityType& BalancedSelection::selectFacility(const vector<FacilityType>& facilitiesOptions){
     int index = 0;
-    int minDiff = INT_MAX; // We want to get the minimum value after reduction
+    int minDiff = INT32_MAX; // We want to get the minimum value after reduction
     int i = 0;
     for (FacilityType ft:facilitiesOptions){
         int current = checkDiff(LifeQualityScore + ft.getLifeQualityScore(), EconomyScore + ft.getEconomyScore(), EnvironmentScore + ft.getEnvironmentScore());
@@ -35,6 +35,9 @@ const FacilityType& BalancedSelection::selectFacility(const vector<FacilityType>
         i=i+1;
     }
     const FacilityType& res = facilitiesOptions.at(index);
+    LifeQualityScore += res.getLifeQualityScore();
+    EconomyScore += res.getEconomyScore();
+    EnvironmentScore += res.getEnvironmentScore();
     return res;
 }
 
@@ -59,24 +62,6 @@ int BalancedSelection::checkDiff(int lifeScore, int economyScore, int environmen
     
 }
 
-
-
-
-
-
-
-
-
-
 const string BalancedSelection::toString() const{
     return "Life Score: " + std::to_string(LifeQualityScore) + "Economy Score: " + std::to_string(EconomyScore) + "Environment Score: " + std::to_string(EnvironmentScore);
 }
-
-
-
-/*
-class BalancedSelection: public SelectionPolicy {
-    public
-        const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
-};
-*/
