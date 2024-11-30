@@ -22,6 +22,7 @@ class Settlement {
         SettlementType getType() const;
         const string toString() const;
         static string SettlementTypeToString (SettlementType s);
+        const int getMaxCapacity() const;
 
 
         private:

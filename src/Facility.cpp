@@ -35,7 +35,22 @@ const FacilityStatus& Facility::getStatus() const{return status;}
 void Facility::setStatus(FacilityStatus otherStatus){status = otherStatus;}
 
 // Other methods
-FacilityStatus Facility::step(){}
+FacilityStatus Facility::step(){
+    if(timeLeft > 0){
+        timeLeft--;
+    }
+    
+    if(timeLeft == 0){
+        setStatus(FacilityStatus::OPERATIONAL);
+        return FacilityStatus::OPERATIONAL;
+    }
+
+    return FacilityStatus::UNDER_CONSTRUCTIONS;
+}
+
+Facility* Facility::clone(){
+    return new Facility(*this);
+}
 
 const string Facility::toString() const{
     string statusVal;
