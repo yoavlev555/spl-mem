@@ -35,6 +35,9 @@ const FacilityType& BalancedSelection::selectFacility(const vector<FacilityType>
         i=i+1;
     }
     const FacilityType& res = facilitiesOptions.at(index);
+    LifeQualityScore += res.getLifeQualityScore();
+    EconomyScore += res.getEconomyScore();
+    EnvironmentScore += res.getEnvironmentScore();
     return res;
 }
 

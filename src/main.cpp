@@ -43,7 +43,7 @@ int main(int argc, char** argv){
 
     vector<FacilityType> ft = vector<FacilityType>();
     ft.push_back(FacilityType("Desalination Plant",FacilityCategory::ECONOMY,2,2,1,2));
-    ft.push_back(FacilityType("Kindergarten",FacilityCategory::ECONOMY,12,1,0,0));
+    ft.push_back(FacilityType("Kindergarten",FacilityCategory::ECONOMY,12,0,2,0));
     ft.push_back(FacilityType("Hospital",FacilityCategory::ENVIRONMENT,6,3,1,2));
     ft.push_back(FacilityType("1",FacilityCategory::ECONOMY,12,1,0,0));
     ft.push_back(FacilityType("2",FacilityCategory::ECONOMY,12,1,0,0));
@@ -53,9 +53,9 @@ int main(int argc, char** argv){
     Settlement s = Settlement("Facili", SettlementType::METROPOLIS);
     
 
-    Plan test = Plan(16, s, new SustainabilitySelection(), ft);
+    Plan test = Plan(16, s, new NaiveSelection(), ft);
 
-    for (int i=0; i<20; i++){
+    for (int i=0; i<10; i++){
         test.step();
         test.toString();
     }
