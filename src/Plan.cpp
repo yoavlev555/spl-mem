@@ -10,6 +10,9 @@ Plan::Plan(const int planId, const Settlement &settlement, SelectionPolicy *sele
 }
 
 Plan::Plan(const Plan& other):Plan(other.plan_id,other.settlement,other.selectionPolicy->clone(),other.facilityOptions){
+    life_quality_score = other.life_quality_score;
+    environment_score = other.environment_score;
+    economy_score = other.economy_score;
     for(Facility* f : other.facilities){
         facilities.push_back(f->clone());
     }
@@ -23,12 +26,12 @@ Plan::Plan(const Plan& other):Plan(other.plan_id,other.settlement,other.selectio
 Plan::~Plan(){
     delete selectionPolicy;
 
-    for(Facility* f : facilities){
-        delete f;
+    for(int i=0; i < facilities.size(); i++){
+        delete facilities[i];
     }
 
-    for(Facility* f : underConstruction){
-        delete f;
+    for(int i=0; i < underConstruction.size(); i++){
+        delete underConstruction[i];
     }
 }
 
@@ -63,6 +66,9 @@ Plan Plan::operator=(const Plan& other){
         for(Facility* f : other.underConstruction){
             underConstruction.push_back(f->clone());
         }
+        
+        
+        
     }
     
 }

@@ -1,9 +1,11 @@
 #include <iostream>
 #include "Simulation.h"
 #include "Auxiliary.h"
+#include "Action.h"
 #include <fstream> 
 using namespace std;
 
+// Constructors
 Simulation::Simulation(const string &configFilePath):isRunning(true), planCounter(0),actionsLog(vector<BaseAction*>()), plans(vector<Plan>()), settlements(vector<Settlement*>()), facilitiesOptions(vector<FacilityType>()){
     string line;
     ifstream MyReadFile(configFilePath);
@@ -75,20 +77,136 @@ Simulation::Simulation(const string &configFilePath):isRunning(true), planCounte
             planCounter++;
         }
     }
-    //# plan <settlement_name> <selection_policy>
 }
-/*
-bool isRunning;
-        int planCounter; //For assigning unique plan IDs
-        vector<BaseAction*> actionsLog;
-        vector<Plan> plans;
-        vector<Settlement*> settlements;
-        vector<FacilityType> facilitiesOptions;
-        */
+
+Simulation::Simulation(const Simulation& other):isRunning(other.isRunning),planCounter(other.planCounter),actionsLog(vector<BaseAction*>()),settlements(vector<Settlement*>()),facilitiesOptions(other.facilitiesOptions),plans(other.plans){
+    isRunning = other.isRunning;
+    planCounter = other.planCounter;
+    
+    for(BaseAction* action : other.actionsLog){
+        actionsLog.push_back(action -> clone());
+    }
+
+    for(Settlement* s : other.settlements){
+        settlements.push_back(s -> clone());
+    }
+}
+
+// Destructor
+Simulation::~Simulation(){
+    for(BaseAction* action : actionsLog){
+       delete action;
+    }
+
+    for(Settlement* s : settlements){
+        delete s;
+    }
+
+    actionsLog.clear();
+    settlements.clear();
+}
+
+// Operators
+Simulation& Simulation::operator=(const Simulation& other){
+    if(this != &other){
+        isRunning = other.isRunning;
+        planCounter = other.planCounter;
+        plans = other.plans;
+        facilitiesOptions = other.facilitiesOptions;
+
+        settlements.clear();
+        actionsLog.clear();
+
+
+        for(Settlement* s : other.settlements){
+            settlements.push_back(s -> clone());
+        }
+
+        
+        for(BaseAction* action : other.actionsLog){
+            actionsLog.push_back(action -> clone());
+        }
+    }
+
+    return *this;
+}
+
+// Getters
+Plan &Simulation::getPlan(const int planID){return plans.at(planID);}
+Settlement& Simulation::getSettlement(const string &settlementName){
+    for(Settlement* s : settlements){
+        if(s->getName() == settlementName){
+            return *s;
+        }
+    }
+}
+
+// Other Methods
+void Simulation::addPlan(const Settlement &settlement, SelectionPolicy *selectionPolicy){
+    plans.push_back(Plan(planCounter,settlement,selectionPolicy,facilitiesOptions));
+    planCounter++;
+}
+
+void Simulation::addAction(BaseAction *action){
+    actionsLog.push_back(action);
+}
+
+bool Simulation::addSettlement(Settlement *settlement){ // Return true if settlement was added
+    for(Settlement* s : settlements){
+        if(s->getName() == settlement->getName()){
+            return false;
+        }
+    }
+
+    settlements.push_back(settlement);
+    return true;
+}
+
+bool Simulation::addFacility(FacilityType facility){ // Return true if facility was added
+     for(FacilityType ft : facilitiesOptions){
+        if(facility.getName() == ft.getName()){
+            return false;
+        }
+    }
+
+    facilitiesOptions.push_back(facility);
+    return true;
+}
+
+bool Simulation::isSettlementExists(const string &settlementName){
+    for(Settlement* s : settlements){
+        if(s->getName() == settlementName){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void Simulation::step(){
+    for(Plan plan : plans){
+        plan.step();
+    }
+}
+
+void Simulation::close(){
+    // Print stats
+    isRunning = false;
+}
+
+void Simulation::open(){
+    isRunning = true;
+}
+
+
+
+
+
 
 
 void Simulation::start(){
     cout << "The simulation has started" << endl;
+    open();
     while(isRunning){
 
     }
@@ -96,28 +214,3 @@ void Simulation::start(){
 
 
 
-
-
-/*
-class Simulation {
-    public:
-        void start();
-        void addPlan(const Settlement &settlement, SelectionPolicy *selectionPolicy);
-        void addAction(BaseAction *action);
-        bool addSettlement(Settlement *settlement);
-        bool addFacility(FacilityType facility);
-        bool isSettlementExists(const string &settlementName);
-        Settlement &getSettlement(const string &settlementName);
-        Plan &getPlan(const int planID);
-        void step();
-        void close();
-        void open();
-
-    private:
-        bool isRunning;
-        int planCounter; //For assigning unique plan IDs
-        vector<BaseAction*> actionsLog;
-        vector<Plan> plans;
-        vector<Settlement*> settlements;
-        vector<FacilityType> facilitiesOptions;
-};*/

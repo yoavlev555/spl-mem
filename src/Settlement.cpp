@@ -43,5 +43,9 @@ string Settlement::SettlementTypeToString (SettlementType s){
     }
 }
 const string Settlement::toString() const{
+
     return "Settlement name:" + name + " Type:" + SettlementTypeToString(type); 
+}
+Settlement* Settlement::clone(){
+    return new Settlement(*this);
 }
