@@ -60,21 +60,23 @@ Simulation::Simulation(const string &configFilePath):isRunning(true), planCounte
 
             if (lineArguments.at(2)=="nve"){
                 plans.push_back(Plan(planCounter,*set , new NaiveSelection(), facilitiesOptions));
+                planCounter++;
             }
 
             else if (lineArguments.at(2)=="bal"){
                 plans.push_back(Plan(planCounter,*set , new BalancedSelection(0,0,0), facilitiesOptions));
+                planCounter++;
             }
 
             else if (lineArguments.at(2)=="eco"){
                 plans.push_back(Plan(planCounter,*set , new EconomySelection(), facilitiesOptions));
+                planCounter++;
             }
 
             else if (lineArguments.at(2)=="env"){
                 plans.push_back(Plan(planCounter,*set , new SustainabilitySelection(), facilitiesOptions));
+                planCounter++;
             }
-
-            planCounter++;
         }
     }
 }
@@ -141,6 +143,30 @@ Settlement& Simulation::getSettlement(const string &settlementName){
     }
 }
 
+int Simulation::getTotalLifeQualityScore(){
+    int val = getPlan(getPlansCounter()).getlifeQualityScore();
+    for (FacilityType ft:facilitiesOptions){
+        val+=ft.getLifeQualityScore();
+    }
+    return val;
+    }
+int Simulation::getTotalEconomyScore(){
+    int val = getPlan(getPlansCounter()).getEconomyScore();
+    for (FacilityType ft:facilitiesOptions){
+        val+=ft.getEconomyScore();
+    }
+    return val;
+}
+int Simulation::getTotalEnvironmentScore(){
+    int val = getPlan(getPlansCounter()).getEnvironmentScore();
+    for (FacilityType ft:facilitiesOptions){
+        val+=ft.getEnvironmentScore();
+    }
+    return val;
+}
+
+const int Simulation::getPlansCounter() const{return planCounter;}
+
 // Other Methods
 void Simulation::addPlan(const Settlement &settlement, SelectionPolicy *selectionPolicy){
     plans.push_back(Plan(planCounter,settlement,selectionPolicy,facilitiesOptions));
@@ -152,10 +178,8 @@ void Simulation::addAction(BaseAction *action){
 }
 
 bool Simulation::addSettlement(Settlement *settlement){ // Return true if settlement was added
-    for(Settlement* s : settlements){
-        if(s->getName() == settlement->getName()){
-            return false;
-        }
+    if(isSettlementExists(settlement->getName())){
+        return false;
     }
 
     settlements.push_back(settlement);

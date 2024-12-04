@@ -51,3 +51,7 @@ const string SustainabilitySelection::toString() const{
     return "last selected index is: " + std::to_string(lastSelectedIndex);
 }
 
+
+const string SustainabilitySelection::getType() const{
+    return "env";
+}
