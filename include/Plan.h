@@ -27,7 +27,13 @@ class Plan {
         void addFacility(Facility* facility);
         const string getPolicyName() const;
         const string toString() const;
+        const int getID() const;
         const SelectionPolicy& getPolicy() const;
+        const Settlement& getSettlement() const;
+        int getTotalLifeQualityScore();
+        int getTotalEconomyScore();
+        int getTotalEnvironmentScore();
+        void printPlan();
         
     private:
         int plan_id;

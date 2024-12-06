@@ -25,13 +25,12 @@ class Simulation {
         bool isSettlementExists(const string &settlementName);
         Settlement &getSettlement(const string &settlementName);
         Plan &getPlan(const int planID);
+        const vector<Plan>& getPlans() const;
         const int getPlansCounter() const;
         void step();
         void close();
         void open();
-        int getTotalLifeQualityScore();
-        int getTotalEconomyScore();
-        int getTotalEnvironmentScore();
+        const vector<BaseAction*>& getActionLog(); 
 
     private:
         bool isRunning;

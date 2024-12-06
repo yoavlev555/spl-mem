@@ -23,7 +23,6 @@ BalancedSelection* BalancedSelection::clone() const{
 }
 
 //Getters 
-
 const string BalancedSelection::getType() const{
     return "bal";
 }

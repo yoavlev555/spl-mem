@@ -6,7 +6,7 @@
 using namespace std;
 
 // Constructors
-Simulation::Simulation(const string &configFilePath):isRunning(true), planCounter(0),actionsLog(vector<BaseAction*>()), plans(vector<Plan>()), settlements(vector<Settlement*>()), facilitiesOptions(vector<FacilityType>()){
+Simulation::Simulation(const string &configFilePath):isRunning(false), planCounter(0),actionsLog(vector<BaseAction*>()), plans(vector<Plan>()), settlements(vector<Settlement*>()), facilitiesOptions(vector<FacilityType>()){
     string line;
     ifstream MyReadFile(configFilePath);
     while (getline (MyReadFile, line)){
@@ -50,31 +50,31 @@ Simulation::Simulation(const string &configFilePath):isRunning(true), planCounte
         }
 
         else if (lineArguments.at(0) == "plan"){
-            Settlement* set;
+            int settlementIndex;
             for (int i = 0; i< settlements.size(); i++){
                 if(settlements.at(i)->getName() == lineArguments.at(1)){
-                    set = settlements.at(i);
+                    settlementIndex = i;
                     break;
                 }
             }
 
             if (lineArguments.at(2)=="nve"){
-                plans.push_back(Plan(planCounter,*set , new NaiveSelection(), facilitiesOptions));
+                plans.push_back(Plan(planCounter,*(settlements.at(settlementIndex)) , new NaiveSelection(), facilitiesOptions));
                 planCounter++;
             }
 
             else if (lineArguments.at(2)=="bal"){
-                plans.push_back(Plan(planCounter,*set , new BalancedSelection(0,0,0), facilitiesOptions));
+                plans.push_back(Plan(planCounter,*(settlements.at(settlementIndex)) , new BalancedSelection(0,0,0), facilitiesOptions));
                 planCounter++;
             }
 
             else if (lineArguments.at(2)=="eco"){
-                plans.push_back(Plan(planCounter,*set , new EconomySelection(), facilitiesOptions));
+                plans.push_back(Plan(planCounter,*(settlements.at(settlementIndex)) , new EconomySelection(), facilitiesOptions));
                 planCounter++;
             }
 
             else if (lineArguments.at(2)=="env"){
-                plans.push_back(Plan(planCounter,*set , new SustainabilitySelection(), facilitiesOptions));
+                plans.push_back(Plan(planCounter,*(settlements.at(settlementIndex)) , new SustainabilitySelection(), facilitiesOptions));
                 planCounter++;
             }
         }
@@ -135,6 +135,9 @@ Simulation& Simulation::operator=(const Simulation& other){
 
 // Getters
 Plan &Simulation::getPlan(const int planID){return plans.at(planID);}
+const vector<Plan>& Simulation::getPlans() const{return plans;};
+const int Simulation::getPlansCounter() const{return planCounter;}
+const vector<BaseAction*>& Simulation::getActionLog(){return actionsLog;}
 Settlement& Simulation::getSettlement(const string &settlementName){
     for(Settlement* s : settlements){
         if(s->getName() == settlementName){
@@ -143,29 +146,6 @@ Settlement& Simulation::getSettlement(const string &settlementName){
     }
 }
 
-int Simulation::getTotalLifeQualityScore(){
-    int val = getPlan(getPlansCounter()).getlifeQualityScore();
-    for (FacilityType ft:facilitiesOptions){
-        val+=ft.getLifeQualityScore();
-    }
-    return val;
-    }
-int Simulation::getTotalEconomyScore(){
-    int val = getPlan(getPlansCounter()).getEconomyScore();
-    for (FacilityType ft:facilitiesOptions){
-        val+=ft.getEconomyScore();
-    }
-    return val;
-}
-int Simulation::getTotalEnvironmentScore(){
-    int val = getPlan(getPlansCounter()).getEnvironmentScore();
-    for (FacilityType ft:facilitiesOptions){
-        val+=ft.getEnvironmentScore();
-    }
-    return val;
-}
-
-const int Simulation::getPlansCounter() const{return planCounter;}
 
 // Other Methods
 void Simulation::addPlan(const Settlement &settlement, SelectionPolicy *selectionPolicy){
@@ -214,19 +194,13 @@ void Simulation::step(){
 }
 
 void Simulation::close(){
-    // Print stats
+    // delete unused resources
     isRunning = false;
 }
 
 void Simulation::open(){
     isRunning = true;
 }
-
-
-
-
-
-
 
 void Simulation::start(){
     cout << "The simulation has started" << endl;
@@ -235,6 +209,8 @@ void Simulation::start(){
 
     }
 }
+
+
 
 
 
