@@ -12,6 +12,7 @@ class SelectionPolicy {
         virtual const string toString() const = 0;
         virtual SelectionPolicy* clone() const = 0;
         virtual ~SelectionPolicy() = default;
+        virtual const string getType() const = 0;
 };
 
 class NaiveSelection: public SelectionPolicy {
@@ -21,7 +22,9 @@ class NaiveSelection: public SelectionPolicy {
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
         NaiveSelection *clone() const override;
+        const string getType() const override;
         ~NaiveSelection() override = default;
+
         NaiveSelection& operator=(const NaiveSelection& other);
     private:
         int lastSelectedIndex;
@@ -34,6 +37,7 @@ class BalancedSelection: public SelectionPolicy {
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
         BalancedSelection *clone() const override;
+        const string getType() const override;
         ~BalancedSelection() override = default;
         int checkDiff(int lifeScore, int economyScore, int environmentScore);
         BalancedSelection& operator=(const BalancedSelection& other);
@@ -52,6 +56,7 @@ class EconomySelection: public SelectionPolicy {
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
         EconomySelection *clone() const override;
+        const string getType() const override;
         ~EconomySelection() override = default;
     private:
         int lastSelectedIndex;
@@ -66,6 +71,7 @@ class SustainabilitySelection: public SelectionPolicy {
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
         SustainabilitySelection *clone() const override;
+        const string getType() const override;
         ~SustainabilitySelection() override = default;
     private:
         int lastSelectedIndex;

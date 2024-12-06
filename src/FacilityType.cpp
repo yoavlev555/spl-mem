@@ -17,3 +17,8 @@ int FacilityType::getLifeQualityScore() const{return lifeQuality_score;}
 int FacilityType::getEnvironmentScore() const{return environment_score;}
 int FacilityType::getEconomyScore() const{return economy_score;}
 FacilityCategory FacilityType::getCategory() const{return category;}
+const int FacilityType::getFacilityCategory() const{
+    if (category == FacilityCategory::LIFE_QUALITY){return 0;}
+    if (category == FacilityCategory::ECONOMY){return 1;}
+    if (category == FacilityCategory::ENVIRONMENT){return 2;}
+}

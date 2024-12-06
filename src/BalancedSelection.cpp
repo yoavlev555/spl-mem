@@ -22,24 +22,12 @@ BalancedSelection* BalancedSelection::clone() const{
     return new BalancedSelection(*this);
 }
 
-const FacilityType& BalancedSelection::selectFacility(const vector<FacilityType>& facilitiesOptions){
-    int index = 0;
-    int minDiff = INT32_MAX; // We want to get the minimum value after reduction
-    int i = 0;
-    for (FacilityType ft:facilitiesOptions){
-        int current = checkDiff(LifeQualityScore + ft.getLifeQualityScore(), EconomyScore + ft.getEconomyScore(), EnvironmentScore + ft.getEnvironmentScore());
-        if( current < minDiff){
-            minDiff = current;
-            index = i;
-        }
-        i=i+1;
-    }
-    const FacilityType& res = facilitiesOptions.at(index);
-    LifeQualityScore += res.getLifeQualityScore();
-    EconomyScore += res.getEconomyScore();
-    EnvironmentScore += res.getEnvironmentScore();
-    return res;
+//Getters 
+const string BalancedSelection::getType() const{
+    return "bal";
 }
+
+//Other Methods
 
 int BalancedSelection::checkDiff(int lifeScore, int economyScore, int environmentScore){
     if(lifeScore > economyScore){
@@ -64,4 +52,23 @@ int BalancedSelection::checkDiff(int lifeScore, int economyScore, int environmen
 
 const string BalancedSelection::toString() const{
     return "Life Score: " + std::to_string(LifeQualityScore) + "Economy Score: " + std::to_string(EconomyScore) + "Environment Score: " + std::to_string(EnvironmentScore);
+}
+
+const FacilityType& BalancedSelection::selectFacility(const vector<FacilityType>& facilitiesOptions){
+    int index = 0;
+    int minDiff = INT32_MAX; // We want to get the minimum value after reduction
+    int i = 0;
+    for (FacilityType ft:facilitiesOptions){
+        int current = checkDiff(LifeQualityScore + ft.getLifeQualityScore(), EconomyScore + ft.getEconomyScore(), EnvironmentScore + ft.getEnvironmentScore());
+        if( current < minDiff){
+            minDiff = current;
+            index = i;
+        }
+        i=i+1;
+    }
+    const FacilityType& res = facilitiesOptions.at(index);
+    LifeQualityScore += res.getLifeQualityScore();
+    EconomyScore += res.getEconomyScore();
+    EnvironmentScore += res.getEnvironmentScore();
+    return res;
 }

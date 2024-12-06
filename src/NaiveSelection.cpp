@@ -32,4 +32,9 @@ const string NaiveSelection::toString() const{
 }
 
 
+const string NaiveSelection::getType() const{
+    return "nve";
+}
+
+
 

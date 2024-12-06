@@ -51,3 +51,7 @@ const string EconomySelection::toString() const{
     return "last selected index is: " + std::to_string(lastSelectedIndex);
 }
 
+
+const string EconomySelection::getType() const{
+    return "eco";
+}
