@@ -206,6 +206,51 @@ void Simulation::start(){
     cout << "The simulation has started" << endl;
     open();
     while(isRunning){
+        string action = std::cin<<std::endl;
+        vector<string> actionVec = Auxiliary.parseArguments(action);
+        if (isValid(actionVec)){
+            switch (actionVec.at(0)) {
+                case "facility" : 
+                    actionsLog.push_back(new AddFacility(actionVec.at(1), actionVec.at(2), actionVec.at(3), actionVec.at(4), actionVec.at(5), actionVec.at(6));
+                    BaseAction
+                    break;
+                case "plan" :
+                    actionsLog.push_back(new addPlan())
+                    break;
+                case "settlement" :
+                    actionsLog.push_back()
+                    break;
+                case "backup" :
+                    actionsLog.push_back
+                    break;
+                case "restore" :
+                    actionsLog.push_back
+                    break;
+                case "changePolicy" :
+                    actionsLog.push_back
+                    break;
+                case "close" :
+                    actionsLog.push_back
+                    break;
+                case "log" :
+                    actionsLog.push_back
+                    break;
+                case "planStatus" :
+                    actionsLog.push_back
+                    break;  
+                case "step" :
+                    actionsLog.push_back
+                    break;
+
+                default:
+                    break; 
+            }
+            
+        }
+        else{
+            // input noVladimir
+        }
+       
 
     }
 }

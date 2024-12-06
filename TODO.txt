@@ -1,11 +1,16 @@
-TDL
 
+Close - delete resources
+Start
+RO5 everywhere
 
-General
+Tests + Check if we have uncessary memory in heap instead of stack
+
 Decide if we should remove unnecessary RO3 implementation
-Change logs according to the assignment specipications
+Check memory leaks
 
 
 
-Left to do in baseactions - Close, PrintActionsLog, PrintPlanStatus, SimulateStep, BackupSimulation
-RO5
+
+RO5 implementations:
+simulation.cpp
+plan.cpp
