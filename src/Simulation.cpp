@@ -116,9 +116,16 @@ Simulation& Simulation::operator=(const Simulation& other){
         plans = other.plans;
         facilitiesOptions = other.facilitiesOptions;
 
+        for (int i=0; i<settlements.size();i++){
+            delete settlements.at(i);
+        }
+
+        for (int i=0; i<actionsLog.size();i++){
+            delete actionsLog.at(i);
+        }
+
         settlements.clear();
         actionsLog.clear();
-
 
         for(Settlement* s : other.settlements){
             settlements.push_back(s -> clone());

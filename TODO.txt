@@ -21,3 +21,6 @@ Decide if we should remove unnecessary RO3 implementation
 Check memory leaks
 implement isValid with param check?
 overcome all warnings
+
+--- last things  ---
+fix isValid 
