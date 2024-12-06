@@ -49,3 +49,9 @@ const string Settlement::toString() const{
 Settlement* Settlement::clone(){
     return new Settlement(*this);
 }
+
+SettlementType Settlement::getType(int i){
+    if(i==0){return SettlementType::VILLAGE;}
+    else if(i==1){return SettlementType::CITY;}
+    else if(i==2){return SettlementType::METROPOLIS;}
+}

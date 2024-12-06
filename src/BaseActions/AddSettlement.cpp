@@ -15,7 +15,6 @@ void AddSettlement::act(Simulation &simulation){
         BaseAction::complete();
     }
 }
-
 AddSettlement *AddSettlement::clone() const{return new AddSettlement(settlementName,settlementType);}
 const string AddSettlement::toString() const{
     int type;

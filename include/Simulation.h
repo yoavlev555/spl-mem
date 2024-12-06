@@ -27,6 +27,7 @@ class Simulation {
         Plan &getPlan(const int planID);
         const vector<Plan>& getPlans() const;
         const int getPlansCounter() const;
+        bool isValid(const vector<string>& line);
         void step();
         void close();
         void open();

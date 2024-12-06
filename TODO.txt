@@ -1,11 +1,26 @@
-TDL
 
 
-General
+
+
+Tests + Check if we have uncessary memory in heap instead of stack
+
+
+
+
+RO5 everywhere - RO5 implementations:
+simulation.cpp
+plan.cpp
+selection_policy.cpp
+Plan::setSelectionPolicy RO5
+
+
+
+
+
 Decide if we should remove unnecessary RO3 implementation
-Change logs according to the assignment specipications
+Check memory leaks
+implement isValid with param check?
+overcome all warnings
 
-
-
-Left to do in baseactions - Close, PrintActionsLog, PrintPlanStatus, SimulateStep, BackupSimulation
-RO5
+--- last things  ---
+fix isValid 

@@ -1,5 +1,6 @@
 #include "Plan.h"
 #include <iostream>
+
 using namespace std;
 
 // Constructors
@@ -28,16 +29,16 @@ Plan::~Plan(){
     delete selectionPolicy;
 
     for(int i=0; i < facilities.size(); i++){
-        delete facilities[i];
+        delete facilities.at(i);
     }
 
     for(int i=0; i < underConstruction.size(); i++){
-        delete underConstruction[i];
+        delete underConstruction.at(i);
     }
 }
 
 // Operators
-Plan Plan::operator=(const Plan& other){
+Plan& Plan::operator=(const Plan& other){
     if(this != &other){
         plan_id = other.plan_id;
         status = other.status;
@@ -45,33 +46,29 @@ Plan Plan::operator=(const Plan& other){
         environment_score = other.environment_score;
         economy_score = other.economy_score;
 
-
         delete selectionPolicy;
         selectionPolicy = other.selectionPolicy->clone();
 
-        for(Facility* f : facilities){
-            delete f;
+        for(int i = 0; i < facilities.size(); i++){
+            delete facilities.at(i);
         }
 
-        for(Facility* f : underConstruction){
-            delete f;
+        for(int i = 0; i < underConstruction.size(); i++){
+            delete underConstruction.at(i);
         }
-        
+
         facilities.clear();
         underConstruction.clear();
 
-        for(Facility* f : other.facilities){
-            facilities.push_back(f->clone());
+        for(int i = 0; i < other.facilities.size(); i++){
+            facilities.push_back(other.facilities.at(i)->clone());
         }
 
-        for(Facility* f : other.underConstruction){
-            underConstruction.push_back(f->clone());
-        }
-        
-        
-        
+        for(int i = 0; i < other.underConstruction.size(); i++){
+            underConstruction.push_back(other.underConstruction.at(i)->clone());
+        } 
     }
-    
+    return *this;
 }
 
 // Getters
@@ -105,9 +102,10 @@ int Plan::getTotalEnvironmentScore(){
 }
 
 // Setters
-void Plan::setSelectionPolicy(SelectionPolicy *selectionPolicy){
+void Plan::setSelectionPolicy(SelectionPolicy *otherSelectionPolicy){
     delete selectionPolicy;
-    selectionPolicy = selectionPolicy->clone();
+    selectionPolicy = otherSelectionPolicy->clone(); // RO5
+    delete otherSelectionPolicy;
 }
 
 // Other Methods
@@ -133,7 +131,7 @@ void Plan::step(){
         }
     }
 
-    if(underConstruction.size() != settlement.getMaxCapacity()){
+    if(underConstruction.size() < settlement.getMaxCapacity()){
         status = PlanStatus::AVALIABLE;
     }
 }
@@ -143,9 +141,9 @@ void Plan::printPlan(){
     string stat = (status == PlanStatus::AVALIABLE)? "AVAILABLE" : "BUSY";
     cout << "planStatus: " + stat << endl;
     cout << "selectionPolicy: " + selectionPolicy->getType() << endl;
-    cout << "LifeQualityScore: " + life_quality_score << endl;
-    cout << "EconomyScore: " + economy_score << endl;
-    cout << "EnvironmentScore: " + environment_score << endl;
+    cout << "LifeQualityScore: " + to_string(life_quality_score) << endl;
+    cout << "EconomyScore: " + to_string(economy_score) << endl;
+    cout << "EnvironmentScore: " + to_string(environment_score) << endl;
 
     for (Facility* facility: underConstruction){
         cout<<"facilityName: " + facility->getName() + " facilityStatus: UNDER_CONSTUCTIONS"<<endl; 

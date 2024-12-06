@@ -14,6 +14,10 @@ SustainabilitySelection& SustainabilitySelection::operator=(const Sustainability
 
     return *this;
 }
+// Getters
+
+const string SustainabilitySelection::getType() const{return "env";}
+const string SustainabilitySelection::getFullType() const{return "Sustainability";}
 
 // Overrides 
 const FacilityType& SustainabilitySelection::selectFacility(const vector<FacilityType>& facilitiesOptions){  
@@ -51,7 +55,3 @@ const string SustainabilitySelection::toString() const{
     return "last selected index is: " + std::to_string(lastSelectedIndex);
 }
 
-
-const string SustainabilitySelection::getType() const{
-    return "env";
-}

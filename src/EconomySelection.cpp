@@ -14,7 +14,14 @@ EconomySelection& EconomySelection::operator=(const EconomySelection& other){
 
     return *this;
 }
+// Getters 
+const string EconomySelection::getType() const{
+    return "eco";
+}
 
+const string EconomySelection::getFullType() const{
+    return "Economy";
+}
 // Overrides 
 const FacilityType& EconomySelection::selectFacility(const vector<FacilityType>& facilitiesOptions){  
     vector<int> indexes = vector<int>();
@@ -52,6 +59,3 @@ const string EconomySelection::toString() const{
 }
 
 
-const string EconomySelection::getType() const{
-    return "eco";
-}

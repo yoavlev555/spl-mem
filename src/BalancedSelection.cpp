@@ -26,6 +26,9 @@ BalancedSelection* BalancedSelection::clone() const{
 const string BalancedSelection::getType() const{
     return "bal";
 }
+const string BalancedSelection::getFullType() const{
+    return "Balanced";
+}
 
 //Other Methods
 
