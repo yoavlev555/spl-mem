@@ -19,6 +19,12 @@ int FacilityType::getEconomyScore() const{return economy_score;}
 FacilityCategory FacilityType::getCategory() const{return category;}
 const int FacilityType::getFacilityCategory() const{
     if (category == FacilityCategory::LIFE_QUALITY){return 0;}
-    if (category == FacilityCategory::ECONOMY){return 1;}
-    if (category == FacilityCategory::ENVIRONMENT){return 2;}
+    else if (category == FacilityCategory::ECONOMY){return 1;}
+    else {return 2;}
+}
+
+FacilityCategory FacilityType::getCategory(int i){
+    if(i == 0) {return FacilityCategory::LIFE_QUALITY;}
+    else if(i == 1) {return FacilityCategory::ECONOMY;}
+    else {return FacilityCategory::ENVIRONMENT;}
 }

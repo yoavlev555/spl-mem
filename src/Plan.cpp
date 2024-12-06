@@ -1,5 +1,6 @@
 #include "Plan.h"
 #include <iostream>
+
 using namespace std;
 
 // Constructors
@@ -105,9 +106,10 @@ int Plan::getTotalEnvironmentScore(){
 }
 
 // Setters
-void Plan::setSelectionPolicy(SelectionPolicy *selectionPolicy){
+void Plan::setSelectionPolicy(SelectionPolicy *otherSelectionPolicy){
     delete selectionPolicy;
-    selectionPolicy = selectionPolicy->clone();
+    selectionPolicy = otherSelectionPolicy->clone(); // RO5
+    delete otherSelectionPolicy;
 }
 
 // Other Methods
@@ -133,7 +135,7 @@ void Plan::step(){
         }
     }
 
-    if(underConstruction.size() != settlement.getMaxCapacity()){
+    if(underConstruction.size() < settlement.getMaxCapacity()){
         status = PlanStatus::AVALIABLE;
     }
 }
@@ -143,9 +145,9 @@ void Plan::printPlan(){
     string stat = (status == PlanStatus::AVALIABLE)? "AVAILABLE" : "BUSY";
     cout << "planStatus: " + stat << endl;
     cout << "selectionPolicy: " + selectionPolicy->getType() << endl;
-    cout << "LifeQualityScore: " + life_quality_score << endl;
-    cout << "EconomyScore: " + economy_score << endl;
-    cout << "EnvironmentScore: " + environment_score << endl;
+    cout << "LifeQualityScore: " + to_string(life_quality_score) << endl;
+    cout << "EconomyScore: " + to_string(economy_score) << endl;
+    cout << "EnvironmentScore: " + to_string(environment_score) << endl;
 
     for (Facility* facility: underConstruction){
         cout<<"facilityName: " + facility->getName() + " facilityStatus: UNDER_CONSTUCTIONS"<<endl; 

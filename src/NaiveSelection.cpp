@@ -15,6 +15,10 @@ NaiveSelection& NaiveSelection::operator=(const NaiveSelection& other){
     return *this;
 }
 
+// Getters
+const string NaiveSelection::getType() const{return "nve";}
+const string NaiveSelection::getFullType() const{return "Naive";}
+
 // Overrides
 const FacilityType& NaiveSelection::selectFacility(const vector<FacilityType>& facilitiesOptions){
     const FacilityType& res = facilitiesOptions.at(lastSelectedIndex);
@@ -32,9 +36,6 @@ const string NaiveSelection::toString() const{
 }
 
 
-const string NaiveSelection::getType() const{
-    return "nve";
-}
 
 
 

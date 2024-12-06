@@ -6,7 +6,7 @@ RestoreSimulation::RestoreSimulation():BaseAction::BaseAction(){}
 
 //Overrides
 void RestoreSimulation::act(Simulation &simulation){
-    if (*backup = nullptr){
+    if (backup == nullptr){
         BaseAction::error("No backup available");
         std::cout<<BaseAction::getErrorMsg()<<std::endl;
     }

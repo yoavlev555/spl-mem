@@ -1,16 +1,23 @@
 
-Close - delete resources
-Start
-RO5 everywhere
+
+
 
 Tests + Check if we have uncessary memory in heap instead of stack
 
-Decide if we should remove unnecessary RO3 implementation
-Check memory leaks
 
 
 
-
-RO5 implementations:
+RO5 everywhere - RO5 implementations:
 simulation.cpp
 plan.cpp
+selection_policy.cpp
+Plan::setSelectionPolicy RO5
+
+
+
+
+
+Decide if we should remove unnecessary RO3 implementation
+Check memory leaks
+implement isValid with param check?
+overcome all warnings

@@ -14,7 +14,8 @@ int main(int argc, char** argv){
     }
 
     Simulation* s = new Simulation(argv[1]);
-
-    
+    s->start();
+    delete s;
+    delete backup;
     return 0;
 }

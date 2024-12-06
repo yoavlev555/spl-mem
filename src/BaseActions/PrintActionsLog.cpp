@@ -5,14 +5,14 @@ PrintActionsLog::PrintActionsLog():BaseAction::BaseAction(){}
 
 //Overrides
 void PrintActionsLog::act(Simulation &simulation){
-    for (BaseAction* ba : simulation.getActionLog()){
-        std::cout<<ba->toString()<<std::endl;
+    for (int i=0; i<simulation.getActionLog().size()-1; i++){
+        std::cout << simulation.getActionLog().at(i)->toString() << std::endl;
     }
     BaseAction::complete();
 }
 
 PrintActionsLog *PrintActionsLog::clone() const{return new PrintActionsLog();}
-const string PrintActionsLog::toString() const{return "Status: " + BaseAction::getStatusAsString();}
+const string PrintActionsLog::toString() const{return "log: " + BaseAction::getStatusAsString();}
 
 
 

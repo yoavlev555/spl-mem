@@ -134,7 +134,7 @@ Simulation& Simulation::operator=(const Simulation& other){
 }
 
 // Getters
-Plan &Simulation::getPlan(const int planID){return plans.at(planID);}
+Plan& Simulation::getPlan(const int planID){return plans.at(planID);}
 const vector<Plan>& Simulation::getPlans() const{return plans;};
 const int Simulation::getPlansCounter() const{return planCounter;}
 const vector<BaseAction*>& Simulation::getActionLog(){return actionsLog;}
@@ -188,8 +188,8 @@ bool Simulation::isSettlementExists(const string &settlementName){
 }
 
 void Simulation::step(){
-    for(Plan plan : plans){
-        plan.step();
+    for(int i = 0; i < plans.size(); i++){
+        plans.at(i).step();
     }
 }
 
@@ -202,56 +202,46 @@ void Simulation::open(){
     isRunning = true;
 }
 
+bool Simulation::isValid(const vector<string>& command){
+    if(command.at(0) == "facility"){if(command.size() == 7){return true;}}
+    else if(command.at(0) == "plan"){if(command.size() == 3){return true;}}
+    else if(command.at(0) == "settlement"){if(command.size() == 3){return true;}}
+    else if(command.at(0) == "backup"){if(command.size() == 1){return true;}}
+    else if(command.at(0) == "restore"){if(command.size() == 1){return true;}}
+    else if(command.at(0) == "changePolicy"){if(command.size() == 3){return true;}}
+    else if(command.at(0) == "close"){if(command.size() == 1){return true;}}
+    else if(command.at(0) == "log"){if(command.size() == 1){return true;}}
+    else if(command.at(0) == "planStatus"){if(command.size() == 2){return true;}}
+    else if(command.at(0) == "step"){if(command.size() == 2){return true;}}
+    return false;
+}
+
 void Simulation::start(){
     cout << "The simulation has started" << endl;
     open();
     while(isRunning){
-        string action = std::cin<<std::endl;
-        vector<string> actionVec = Auxiliary.parseArguments(action);
-        if (isValid(actionVec)){
-            switch (actionVec.at(0)) {
-                case "facility" : 
-                    actionsLog.push_back(new AddFacility(actionVec.at(1), actionVec.at(2), actionVec.at(3), actionVec.at(4), actionVec.at(5), actionVec.at(6));
-                    BaseAction
-                    break;
-                case "plan" :
-                    actionsLog.push_back(new addPlan())
-                    break;
-                case "settlement" :
-                    actionsLog.push_back()
-                    break;
-                case "backup" :
-                    actionsLog.push_back
-                    break;
-                case "restore" :
-                    actionsLog.push_back
-                    break;
-                case "changePolicy" :
-                    actionsLog.push_back
-                    break;
-                case "close" :
-                    actionsLog.push_back
-                    break;
-                case "log" :
-                    actionsLog.push_back
-                    break;
-                case "planStatus" :
-                    actionsLog.push_back
-                    break;  
-                case "step" :
-                    actionsLog.push_back
-                    break;
-
-                default:
-                    break; 
+        string action;
+        std::getline(std::cin, action);
+        vector<string> actionVec = Auxiliary::parseArguments(action);
+        if(isValid(actionVec) == true){
+            if(actionVec.at(0) == "facility") {actionsLog.push_back(new AddFacility(actionVec.at(1), FacilityType::getCategory(stoi(actionVec.at(2))), stoi(actionVec.at(3)), stoi(actionVec.at(4)), stoi(actionVec.at(5)), stoi(actionVec.at(6))));}      
+            else if(actionVec.at(0) == "plan"){actionsLog.push_back(new AddPlan(actionVec.at(1),actionVec.at(2)));}
+            else if(actionVec.at(0) == "settlement"){actionsLog.push_back(new AddSettlement(actionVec.at(1), Settlement::getType(stoi(actionVec.at(2)))));} 
+            else if(actionVec.at(0) == "backup"){actionsLog.push_back(new BackupSimulation());}
+            else if(actionVec.at(0) == "restore"){actionsLog.push_back(new RestoreSimulation());}
+            else if(actionVec.at(0) == "changePolicy"){actionsLog.push_back(new ChangePlanPolicy(stoi(actionVec.at(1)), actionVec.at(2)));}
+            else if(actionVec.at(0) == "close"){actionsLog.push_back(new Close());}
+            else if(actionVec.at(0) == "log"){actionsLog.push_back(new PrintActionsLog());}
+            else if(actionVec.at(0) == "planStatus"){actionsLog.push_back(new PrintPlanStatus(stoi(actionVec.at(1))));}
+            else if(actionVec.at(0) == "step"){actionsLog.push_back(new SimulateStep(stoi(actionVec.at(1))));}  
+            actionsLog.back()->act(*this);   
+            for(Settlement* s: settlements){
+                std::cout << s->toString() << std::endl;
             }
-            
         }
         else{
-            // input noVladimir
+                cout<< "Нир Сурани – настоящий король" << endl;
         }
-       
-
     }
 }
 

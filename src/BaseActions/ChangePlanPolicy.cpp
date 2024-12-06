@@ -12,11 +12,16 @@ void ChangePlanPolicy::act(Simulation &simulation){
         std::cout<<BaseAction::getErrorMsg()<<std::endl;
     }
     else{
-        Plan p = simulation.getPlan(planId);
-        if(newPolicy == "nve"){return p.setSelectionPolicy(new NaiveSelection());}
-        else if(newPolicy == "bal"){return p.setSelectionPolicy(new BalancedSelection(p.getTotalLifeQualityScore(),p.getTotalEconomyScore(),p.getTotalEnvironmentScore()));} 
-        else if(newPolicy == "eco"){return p.setSelectionPolicy(new EconomySelection());}
-        else if(newPolicy == "env"){return p.setSelectionPolicy(new SustainabilitySelection());}
+        Plan& p = simulation.getPlan(planId);
+        string prevPoilcy = p.getPolicy().getFullType();
+        if(newPolicy == "nve"){p.setSelectionPolicy(new NaiveSelection());}
+        else if(newPolicy == "bal"){p.setSelectionPolicy(new BalancedSelection(p.getTotalLifeQualityScore(),p.getTotalEconomyScore(),p.getTotalEnvironmentScore()));} 
+        else if(newPolicy == "eco"){p.setSelectionPolicy(new EconomySelection());}
+        else if(newPolicy == "env"){p.setSelectionPolicy(new SustainabilitySelection());}
+
+        std::cout << planId << std::endl;
+        std::cout << "previousPolicy: " << prevPoilcy << std::endl;
+        std::cout << "newPolicy: " << p.getPolicy().getFullType() << std::endl;
         BaseAction::complete();
     }
 }
