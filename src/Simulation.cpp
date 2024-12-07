@@ -132,12 +132,13 @@ Simulation& Simulation::operator=(const Simulation& other){
         settlements.clear();
         actionsLog.clear();
         
-        for(Settlement* s : other.settlements){
-            settlements.push_back(s -> clone());
+        for (int i=0 ; i < int(other.settlements.size()); i++)
+        {
+            settlements.push_back(other.settlements.at(i)->clone());
         }
-        
-        for(BaseAction* action : other.actionsLog){
-            actionsLog.push_back(action -> clone());
+        for (int i=0 ; i < int(other.actionsLog.size()); i++)
+        {
+            actionsLog.push_back(other.actionsLog.at(i)->clone());
         }
     }
     

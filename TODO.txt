@@ -16,7 +16,7 @@ Plan::setSelectionPolicy RO5
 
 
 
-
+Settlement& Simulation::getSettlement - maybe an issue
 
 
 
