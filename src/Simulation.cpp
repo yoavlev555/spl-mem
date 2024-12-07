@@ -81,10 +81,7 @@ Simulation::Simulation(const string &configFilePath):isRunning(false), planCount
     }
 }
 
-Simulation::Simulation(const Simulation& other):isRunning(other.isRunning),planCounter(other.planCounter),actionsLog(vector<BaseAction*>()),settlements(vector<Settlement*>()),facilitiesOptions(other.facilitiesOptions),plans(other.plans){
-    isRunning = other.isRunning;
-    planCounter = other.planCounter;
-    
+Simulation::Simulation(const Simulation& other):isRunning(other.isRunning),planCounter(other.planCounter),actionsLog(vector<BaseAction*>()),settlements(vector<Settlement*>()),facilitiesOptions(other.facilitiesOptions),plans(other.plans){ 
     for(BaseAction* action : other.actionsLog){
         actionsLog.push_back(action -> clone());
     }
@@ -96,16 +93,13 @@ Simulation::Simulation(const Simulation& other):isRunning(other.isRunning),planC
 
 // Destructor
 Simulation::~Simulation(){
-    for(BaseAction* action : actionsLog){
-       delete action;
+    for(int i = 0; i < actionsLog.size(); i++){
+       delete actionsLog.at(i);
     }
 
-    for(Settlement* s : settlements){
-        delete s;
+    for(int i = 0; i < settlements.size(); i++){
+       delete settlements.at(i);
     }
-
-    actionsLog.clear();
-    settlements.clear();
 }
 
 // Operators
@@ -126,17 +120,16 @@ Simulation& Simulation::operator=(const Simulation& other){
 
         settlements.clear();
         actionsLog.clear();
-
+        
         for(Settlement* s : other.settlements){
             settlements.push_back(s -> clone());
         }
-
         
         for(BaseAction* action : other.actionsLog){
             actionsLog.push_back(action -> clone());
         }
     }
-
+    
     return *this;
 }
 
@@ -231,17 +224,21 @@ void Simulation::start(){
         std::getline(std::cin, action);
         vector<string> actionVec = Auxiliary::parseArguments(action);
         if(isValid(actionVec) == true){
-            if(actionVec.at(0) == "facility") {actionsLog.push_back(new AddFacility(actionVec.at(1), FacilityType::getCategory(stoi(actionVec.at(2))), stoi(actionVec.at(3)), stoi(actionVec.at(4)), stoi(actionVec.at(5)), stoi(actionVec.at(6))));}      
-            else if(actionVec.at(0) == "plan"){actionsLog.push_back(new AddPlan(actionVec.at(1),actionVec.at(2)));}
-            else if(actionVec.at(0) == "settlement"){actionsLog.push_back(new AddSettlement(actionVec.at(1), Settlement::getType(stoi(actionVec.at(2)))));} 
-            else if(actionVec.at(0) == "backup"){actionsLog.push_back(new BackupSimulation());}
-            else if(actionVec.at(0) == "restore"){actionsLog.push_back(new RestoreSimulation());}
-            else if(actionVec.at(0) == "changePolicy"){actionsLog.push_back(new ChangePlanPolicy(stoi(actionVec.at(1)), actionVec.at(2)));}
-            else if(actionVec.at(0) == "close"){actionsLog.push_back(new Close());}
-            else if(actionVec.at(0) == "log"){actionsLog.push_back(new PrintActionsLog());}
-            else if(actionVec.at(0) == "planStatus"){actionsLog.push_back(new PrintPlanStatus(stoi(actionVec.at(1))));}
-            else if(actionVec.at(0) == "step"){actionsLog.push_back(new SimulateStep(stoi(actionVec.at(1))));}  
-            actionsLog.back()->act(*this);   
+            BaseAction* action;
+            if(actionVec.at(0) == "facility") {action = new AddFacility(actionVec.at(1), FacilityType::getCategory(stoi(actionVec.at(2))), stoi(actionVec.at(3)), stoi(actionVec.at(4)), stoi(actionVec.at(5)), stoi(actionVec.at(6)));}      
+            else if(actionVec.at(0) == "plan"){action = new AddPlan(actionVec.at(1),actionVec.at(2));}
+            else if(actionVec.at(0) == "settlement"){action = new AddSettlement(actionVec.at(1), Settlement::getType(stoi(actionVec.at(2))));} 
+            else if(actionVec.at(0) == "backup"){action = new BackupSimulation();}
+            else if(actionVec.at(0) == "restore"){action = new RestoreSimulation();}
+            else if(actionVec.at(0) == "changePolicy"){action = new ChangePlanPolicy(stoi(actionVec.at(1)), actionVec.at(2));}
+            else if(actionVec.at(0) == "close"){action = new Close();}
+            else if(actionVec.at(0) == "log"){action = new PrintActionsLog();}
+            else if(actionVec.at(0) == "planStatus"){action = new PrintPlanStatus(stoi(actionVec.at(1)));}
+            else if(actionVec.at(0) == "step"){action = new SimulateStep(stoi(actionVec.at(1)));}
+            
+            action->act(*this);
+            actionsLog.push_back(action);
+
             for(Settlement* s: settlements){
                 std::cout << s->toString() << std::endl;
             }

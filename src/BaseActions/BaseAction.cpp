@@ -1,14 +1,26 @@
 #include "Action.h"
 
-//Constructor
+// Constructor
 BaseAction::BaseAction():status(ActionStatus::ERROR), errorMsg(""){}
+BaseAction::BaseAction(const BaseAction& other):status(other.status),errorMsg(other.errorMsg){}
+BaseAction::BaseAction(const ActionStatus& otherStatus, const string otherMsg):status(otherStatus),errorMsg(otherMsg){}
 
-//Getters
-ActionStatus BaseAction::getStatus() const{
-    return status;
+// Destructor - Default
+
+// Operators
+BaseAction& BaseAction::operator=(const BaseAction& other){
+    if(this != &other){
+        status = other.status;
+        errorMsg = other.errorMsg;
+    }
+
+    return *this;
 }
 
-//Other Functions
+// Getters
+ActionStatus BaseAction::getStatus() const{return status;}
+
+// Other Functions
 
 void BaseAction::complete(){
     status = ActionStatus::COMPLETED;

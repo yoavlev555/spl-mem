@@ -1,10 +1,15 @@
 #include "Action.h"
 
-
 //Constructor
 SimulateStep::SimulateStep(const int numOfSteps):BaseAction::BaseAction(),numOfSteps(numOfSteps){}
+SimulateStep::SimulateStep(const SimulateStep& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()),numOfSteps(other.numOfSteps){}
 
-//Overrides
+// Destructor - Default
+
+// Operators
+SimulateStep& SimulateStep::operator=(const SimulateStep& other){return *this;}
+
+// Overrides
 void SimulateStep::act(Simulation &simulation){
     for(int i = 0; i < numOfSteps; i++){
         simulation.step();

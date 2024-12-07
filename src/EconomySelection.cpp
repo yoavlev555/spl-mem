@@ -4,7 +4,7 @@
 EconomySelection::EconomySelection():lastSelectedIndex(0){}
 EconomySelection::EconomySelection(const EconomySelection& other):lastSelectedIndex(other.lastSelectedIndex){}
 
-// Destructor - use default, not needed
+// Destructor - Default
 
 // Operators
 EconomySelection& EconomySelection::operator=(const EconomySelection& other){
@@ -14,14 +14,13 @@ EconomySelection& EconomySelection::operator=(const EconomySelection& other){
 
     return *this;
 }
-// Getters 
-const string EconomySelection::getType() const{
-    return "eco";
-}
 
-const string EconomySelection::getFullType() const{
-    return "Economy";
-}
+
+// Getters 
+const string EconomySelection::getType() const{return "eco";}
+const string EconomySelection::getFullType() const{return "Economy";}
+
+
 // Overrides 
 const FacilityType& EconomySelection::selectFacility(const vector<FacilityType>& facilitiesOptions){  
     vector<int> indexes = vector<int>();

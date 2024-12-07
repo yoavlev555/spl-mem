@@ -1,10 +1,16 @@
 #include "Action.h"
 using namespace std;
 
-//Constructor
+// Constructor
 Close::Close():BaseAction::BaseAction(){}
+Close::Close(const Close& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()){}
 
-//Overrides
+// Destructor - Default
+
+// Operators
+Close& Close::operator=(const Close& other){return *this;}
+
+// Overrides
 void Close::act(Simulation &simulation){
     // print all plans with their accumulated results
     for(Plan plan : simulation.getPlans()){

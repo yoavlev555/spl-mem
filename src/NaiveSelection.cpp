@@ -4,7 +4,8 @@
 NaiveSelection::NaiveSelection():lastSelectedIndex(0){};
 NaiveSelection::NaiveSelection(const NaiveSelection& other):lastSelectedIndex(other.lastSelectedIndex){}
 
-// Destructor - use default, not needed
+// Destructor - Default
+
 
 // Operators
 NaiveSelection& NaiveSelection::operator=(const NaiveSelection& other){
