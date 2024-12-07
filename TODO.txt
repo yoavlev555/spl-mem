@@ -1,12 +1,91 @@
-RO3 - finish BaseActions - Did only AddFacility
 
-RO5 everywhere - RO5 implementations:
-simulation.cpp
-plan.cpp
+1 simulation.cpp
+2 plan.cpp
 
 Plan::setSelectionPolicy RO5
 
-Check for memory leaks at the end 
-overcome all warnings
-implement isValid with param check?
+3 Leaks Check for memory leaks at the end - valgrind --leak-check=full --show-reachable=yes [program-name] [program parameters]
+4 Warnings handling
+5 implement isValid with param check?
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------- Archive --------=
+Plan& Plan::operator=(const Plan& other){
+    if(this != &other){
+        plan_id = other.plan_id;
+        status = other.status;
+        life_quality_score = other.life_quality_score;
+        environment_score = other.environment_score;
+        economy_score = other.economy_score;
+
+        delete selectionPolicy;
+        selectionPolicy = other.selectionPolicy->clone();
+
+        for(int i = 0; i < int(facilities.size()); i++){
+            delete facilities.at(i);
+        }
+
+        for(int i = 0; i < int(underConstruction.size()); i++){
+            delete underConstruction.at(i);
+        }
+
+        facilities.clear();
+        underConstruction.clear();
+
+        for(int i = 0; i < int(other.facilities.size()); i++){
+            facilities.push_back(other.facilities.at(i)->clone());
+        }
+
+        for(int i = 0; i < int(other.underConstruction.size()); i++){
+            underConstruction.push_back(other.underConstruction.at(i)->clone());
+        } 
+    }
+    return *this;
+}
+Plan& Plan::operator=(Plan&& other){
+    if (&other != this){
+        plan_id = other.plan_id;
+        status = other.status;
+        life_quality_score = other.life_quality_score;
+        economy_score = other.economy_score;
+        environment_score = other.environment_score;
+
+        selectionPolicy = other.selectionPolicy;
+        other.selectionPolicy = nullptr;
+        
+        for(int i = 0; i < int(facilities.size()); i++){
+            delete facilities.at(i);
+        }
+
+        for(int i = 0; i< int(underConstruction.size()); i++){
+            delete underConstruction.at(i);
+        }
+
+        facilities = other.facilities;
+        other.facilities.clear();
+
+        underConstruction = other.underConstruction;
+        other.underConstruction.clear();
+    }
+
+    return *this;
+}

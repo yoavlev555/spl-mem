@@ -10,7 +10,6 @@ Plan::Plan(const int planId, const Settlement &settlement, SelectionPolicy *sele
     environment_score = 0;
     economy_score = 0;
 }
-
 Plan::Plan(const Plan& other):Plan(other.plan_id,other.settlement,other.selectionPolicy->clone(),other.facilityOptions){
     life_quality_score = other.life_quality_score;
     environment_score = other.environment_score;
@@ -23,53 +22,31 @@ Plan::Plan(const Plan& other):Plan(other.plan_id,other.settlement,other.selectio
         underConstruction.push_back(f->clone());
     }
 }
+Plan::Plan(Plan&& other):plan_id(other.plan_id),settlement(other.settlement),facilityOptions(other.facilityOptions),status(other.status),life_quality_score(other.life_quality_score), economy_score(other.economy_score), environment_score(other.environment_score){
+    selectionPolicy = other.selectionPolicy;
+    other.selectionPolicy = nullptr;
+
+    facilities=other.facilities;
+    underConstruction=other.underConstruction;
+
+    other.facilities.clear();
+    other.underConstruction.clear();
+}
 
 // Destructor
 Plan::~Plan(){
     delete selectionPolicy;
 
-    for(int i=0; i < facilities.size(); i++){
+    for(int i=0; i < int(facilities.size()); i++){
         delete facilities.at(i);
     }
 
-    for(int i=0; i < underConstruction.size(); i++){
+    for(int i=0; i < int(underConstruction.size()); i++){
         delete underConstruction.at(i);
     }
 }
 
-// Operators
-Plan& Plan::operator=(const Plan& other){
-    if(this != &other){
-        plan_id = other.plan_id;
-        status = other.status;
-        life_quality_score = other.life_quality_score;
-        environment_score = other.environment_score;
-        economy_score = other.economy_score;
-
-        delete selectionPolicy;
-        selectionPolicy = other.selectionPolicy->clone();
-
-        for(int i = 0; i < facilities.size(); i++){
-            delete facilities.at(i);
-        }
-
-        for(int i = 0; i < underConstruction.size(); i++){
-            delete underConstruction.at(i);
-        }
-
-        facilities.clear();
-        underConstruction.clear();
-
-        for(int i = 0; i < other.facilities.size(); i++){
-            facilities.push_back(other.facilities.at(i)->clone());
-        }
-
-        for(int i = 0; i < other.underConstruction.size(); i++){
-            underConstruction.push_back(other.underConstruction.at(i)->clone());
-        } 
-    }
-    return *this;
-}
+// Operators - Deleted
 
 // Getters
 const int Plan::getID() const {return plan_id;}
@@ -104,14 +81,20 @@ int Plan::getTotalEnvironmentScore(){
 // Setters
 void Plan::setSelectionPolicy(SelectionPolicy *otherSelectionPolicy){
     delete selectionPolicy;
-    selectionPolicy = otherSelectionPolicy->clone(); // RO5
+    selectionPolicy = otherSelectionPolicy->clone();
     delete otherSelectionPolicy;
+}
+
+void Plan::moveSelectionPolicy(SelectionPolicy*&& otherSelectionPolicy){
+    delete selectionPolicy;
+    selectionPolicy = otherSelectionPolicy;
+    otherSelectionPolicy = nullptr;
 }
 
 // Other Methods
 void Plan::step(){
     if(status != PlanStatus::BUSY){
-        while(underConstruction.size() < settlement.getMaxCapacity()){
+        while(int(underConstruction.size()) < int(settlement.getMaxCapacity())){
             underConstruction.push_back(new Facility(selectionPolicy->selectFacility(facilityOptions),settlement.toString()));
         }
     }
@@ -131,26 +114,29 @@ void Plan::step(){
         }
     }
 
-    if(underConstruction.size() < settlement.getMaxCapacity()){
+    if(int(underConstruction.size()) < int(settlement.getMaxCapacity())){
         status = PlanStatus::AVALIABLE;
     }
 }
 
 void Plan::printPlan(){
-    cout << "planID: " + std::to_string(plan_id) + " settlementName " + settlement.getName() << endl;
+    cout << "PlanID: " + std::to_string(plan_id) << endl;
+    cout << "SettlementName: " + settlement.getName() << endl;
     string stat = (status == PlanStatus::AVALIABLE)? "AVAILABLE" : "BUSY";
-    cout << "planStatus: " + stat << endl;
-    cout << "selectionPolicy: " + selectionPolicy->getType() << endl;
+    cout << "PlanStatus: " + stat << endl;
+    cout << "SelectionPolicy: " + selectionPolicy->getType() << endl;
     cout << "LifeQualityScore: " + to_string(life_quality_score) << endl;
     cout << "EconomyScore: " + to_string(economy_score) << endl;
     cout << "EnvironmentScore: " + to_string(environment_score) << endl;
 
     for (Facility* facility: underConstruction){
-        cout<<"facilityName: " + facility->getName() + " facilityStatus: UNDER_CONSTUCTIONS"<<endl; 
+        cout << "FacilityName: " + facility->getName() << endl;
+        cout << "FacilityStatus: UNDER_CONSTUCTIONS" << endl; 
     }
 
     for (Facility* facility: facilities){
-        cout<<"facilityName: " + facility->getName() + " facilityStatus: OPERATIONAL"<<endl; 
+        cout << "FacilityName: " + facility->getName() << endl;
+        cout << "FacilityStatus: OPERATIONAL" << endl; 
     } 
 }
 

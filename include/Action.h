@@ -18,14 +18,6 @@ class BaseAction{
         virtual ~BaseAction() = default;
         BaseAction& operator=(const BaseAction& other);
 
-
-
-
-        /*--------------------RO5--------------------*/ 
-
-
-
-
         /*-------------------OTHER-------------------*/ 
         const string getStatusAsString() const;
         ActionStatus getStatus() const;

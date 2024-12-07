@@ -12,7 +12,7 @@ PrintPlanStatus& PrintPlanStatus::operator=(const PrintPlanStatus& other){return
 // Overrides
 void PrintPlanStatus::act(Simulation &simulation){
     if(planId >= simulation.getPlansCounter()){
-        error("Plan doesn't exist");
+        error("Error: Plan doesn't exist");
         std::cout<<getErrorMsg()<<std::endl;
     }
     else{

@@ -18,6 +18,10 @@ class Simulation {
         ~Simulation();
         Simulation& operator=(const Simulation& other);
 
+        /*--------------------RO5--------------------*/
+        Simulation(Simulation&& other);
+        Simulation& operator=(Simulation&& other);
+
         /*-------------------OTHER-------------------*/
 
         void start();
@@ -39,8 +43,8 @@ class Simulation {
     private:
         bool isRunning;
         int planCounter; //For assigning unique plan IDs
-        vector<BaseAction*> actionsLog;
         vector<Plan> plans; 
-        vector<Settlement*> settlements;
         vector<FacilityType> facilitiesOptions;
+        vector<Settlement*> settlements;
+        vector<BaseAction*> actionsLog;
 };

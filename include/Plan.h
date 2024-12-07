@@ -16,15 +16,11 @@ class Plan {
         /*--------------------RO3--------------------*/ 
         Plan(const Plan& other);
         ~Plan();
-        Plan& operator=(const Plan& other);
-
-
-
+        Plan& operator=(const Plan& other) = delete;
 
         /*--------------------RO5--------------------*/ 
-
-
-
+        Plan(Plan&& other);
+        Plan& operator=(Plan&& other) = delete;
 
         /*-------------------OTHER-------------------*/ 
         
@@ -32,8 +28,7 @@ class Plan {
         const int getEconomyScore() const;
         const int getEnvironmentScore() const;
         void setSelectionPolicy(SelectionPolicy *selectionPolicy);
-        // void setSelectionPolicy(SelectionPolicy*&& selectionPolicy); if wanted
-        void step();
+        void moveSelectionPolicy(SelectionPolicy*&& selectionPolicy);
         void step();
         void printStatus();
         const vector<Facility*> &getFacilities() const;

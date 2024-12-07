@@ -11,7 +11,7 @@ PrintActionsLog& PrintActionsLog::operator=(const PrintActionsLog& other){return
 
 // Overrides
 void PrintActionsLog::act(Simulation &simulation){
-    for (int i=0; i<simulation.getActionLog().size(); i++){
+    for (int i=0; i < int(simulation.getActionLog().size()); i++){
         std::cout << simulation.getActionLog().at(i)->toString() << std::endl;
     }
     BaseAction::complete();
