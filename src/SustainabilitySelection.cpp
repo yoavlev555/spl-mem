@@ -4,7 +4,7 @@
 SustainabilitySelection::SustainabilitySelection():lastSelectedIndex(0){}
 SustainabilitySelection::SustainabilitySelection(const SustainabilitySelection& other):lastSelectedIndex(other.lastSelectedIndex){}
 
-// Destructor - use default, not needed
+// Destructor - Default
 
 // Operators
 SustainabilitySelection& SustainabilitySelection::operator=(const SustainabilitySelection& other){
@@ -14,8 +14,8 @@ SustainabilitySelection& SustainabilitySelection::operator=(const Sustainability
 
     return *this;
 }
-// Getters
 
+// Getters
 const string SustainabilitySelection::getType() const{return "env";}
 const string SustainabilitySelection::getFullType() const{return "Sustainability";}
 

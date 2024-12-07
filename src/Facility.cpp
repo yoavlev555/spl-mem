@@ -1,8 +1,5 @@
 #include "Facility.h"
 
-
-
-
 // Constructors
 Facility::Facility(const string &name, const string &settlementName, const FacilityCategory category, const int price, const int lifeQuality_score, const int economy_score, const int environment_score)
 :FacilityType(name,category,price,lifeQuality_score,economy_score,environment_score),settlementName(settlementName), timeLeft(price), status(FacilityStatus::UNDER_CONSTRUCTIONS){}
@@ -11,12 +8,12 @@ Facility::Facility(const FacilityType &type, const string &settlementName)
 :FacilityType(type.getName(),type.getCategory(),type.getCost(),type.getLifeQualityScore(),type.getEconomyScore(),type.getEnvironmentScore()),settlementName(settlementName),timeLeft(type.getCost()), status(FacilityStatus::UNDER_CONSTRUCTIONS){}
 
 Facility::Facility(const Facility& other)
-:FacilityType(other.name,other.category,other.price,other.lifeQuality_score,other.economy_score,other.environment_score),settlementName(other.settlementName), timeLeft(other.price), status(other.status){}
+:FacilityType::FacilityType(other),settlementName(other.settlementName), timeLeft(other.price), status(other.status){}
 
-// Destructor Use default. Calls automaticly to ~FacilityType
+// Destructor - Default
 
 // Operators
-Facility& Facility::operator=(const Facility& other){ // We will never use this as this is makes no sense to assign another timeLeft or status to another facility.
+Facility& Facility::operator=(const Facility& other){ 
     if(this != &other){
         timeLeft = other.timeLeft;
         status = other.status; 
@@ -24,7 +21,6 @@ Facility& Facility::operator=(const Facility& other){ // We will never use this 
 
     return *this;
 } 
-
 
 // Getters
 const string &Facility::getSettlementName() const{return settlementName;}

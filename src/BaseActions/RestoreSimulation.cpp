@@ -1,10 +1,16 @@
 #include "Action.h"
 extern Simulation* backup;
- 
+
 //Constructor
 RestoreSimulation::RestoreSimulation():BaseAction::BaseAction(){}
+RestoreSimulation::RestoreSimulation(const RestoreSimulation& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()){}
 
-//Overrides
+// Destructor - Default
+
+// Operators
+RestoreSimulation& RestoreSimulation::operator=(const RestoreSimulation& other){return *this;}
+
+// Overrides
 void RestoreSimulation::act(Simulation &simulation){
     if (backup == nullptr){
         BaseAction::error("No backup available");

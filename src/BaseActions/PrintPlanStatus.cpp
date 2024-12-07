@@ -1,9 +1,15 @@
 #include "Action.h"
 
-//Constructor
-PrintPlanStatus::PrintPlanStatus(int PlanId):BaseAction::BaseAction(),planId(PlanId){}
+// Constructor
+PrintPlanStatus::PrintPlanStatus(int planId):BaseAction::BaseAction(),planId(planId){}
+PrintPlanStatus::PrintPlanStatus(const PrintPlanStatus& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()),planId(other.planId){}
 
-//Overrides
+// Destructor - Default
+
+// Operators 
+PrintPlanStatus& PrintPlanStatus::operator=(const PrintPlanStatus& other){return *this;}
+
+// Overrides
 void PrintPlanStatus::act(Simulation &simulation){
     if(planId >= simulation.getPlansCounter()){
         error("Plan doesn't exist");

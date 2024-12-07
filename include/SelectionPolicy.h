@@ -19,14 +19,17 @@ class SelectionPolicy {
 class NaiveSelection: public SelectionPolicy {
     public:
         NaiveSelection();
+        /*--------------------RO3--------------------*/ 
         NaiveSelection(const NaiveSelection& other);
+        ~NaiveSelection() override = default;
+        NaiveSelection& operator=(const NaiveSelection& other);
+
+        /*-------------------OTHER-------------------*/
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
         NaiveSelection *clone() const override;
         const string getType() const override;
-        ~NaiveSelection() override = default;
         const string getFullType() const override;
-        NaiveSelection& operator=(const NaiveSelection& other);
     private:
         int lastSelectedIndex;
 };
@@ -34,14 +37,17 @@ class NaiveSelection: public SelectionPolicy {
 class BalancedSelection: public SelectionPolicy {
     public:
         BalancedSelection(int LifeQualityScore, int EconomyScore, int EnvironmentScore);
+        /*--------------------RO3--------------------*/ 
         BalancedSelection(const BalancedSelection& other);
+        ~BalancedSelection() override = default;
+        BalancedSelection& operator=(const BalancedSelection& other);
+
+        /*-------------------OTHER-------------------*/
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
         BalancedSelection *clone() const override;
         const string getType() const override;
-        ~BalancedSelection() override = default;
         int checkDiff(int lifeScore, int economyScore, int environmentScore);
-        BalancedSelection& operator=(const BalancedSelection& other);
         const string getFullType() const override;
 
     private:
@@ -53,13 +59,16 @@ class BalancedSelection: public SelectionPolicy {
 class EconomySelection: public SelectionPolicy {
     public:
         EconomySelection();
+        /*--------------------RO3--------------------*/ 
         EconomySelection(const EconomySelection& other);        
+        ~EconomySelection() override = default;
         EconomySelection& operator=(const EconomySelection& other);
+
+        /*-------------------OTHER-------------------*/
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
         EconomySelection *clone() const override;
         const string getType() const override;
-        ~EconomySelection() override = default;
         const string getFullType() const override;
     private:
         int lastSelectedIndex;
@@ -69,13 +78,16 @@ class EconomySelection: public SelectionPolicy {
 class SustainabilitySelection: public SelectionPolicy {
     public:
         SustainabilitySelection();
+        /*--------------------RO3--------------------*/ 
         SustainabilitySelection(const SustainabilitySelection& other);        
+        ~SustainabilitySelection() override = default;
         SustainabilitySelection& operator=(const SustainabilitySelection& other);
+        
+        /*-------------------OTHER-------------------*/
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
         SustainabilitySelection *clone() const override;
         const string getType() const override;
-        ~SustainabilitySelection() override = default;
         const string getFullType() const override;
     private:
         int lastSelectedIndex;

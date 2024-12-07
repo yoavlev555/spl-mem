@@ -2,8 +2,12 @@
 
 // Constructors
 AddSettlement::AddSettlement(const string &settlementName,SettlementType settlementType):BaseAction::BaseAction(),settlementName(settlementName),settlementType(settlementType){}
+AddSettlement::AddSettlement(const AddSettlement& other): BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()),settlementName(other.settlementName),settlementType(other.settlementType){}
 
 // Destructor - Default
+
+// Operators
+AddSettlement& AddSettlement::operator=(const AddSettlement& other){return *this;}
 
 // Other methods 
 void AddSettlement::act(Simulation &simulation){

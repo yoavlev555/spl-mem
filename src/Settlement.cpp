@@ -4,7 +4,7 @@
 Settlement::Settlement(const string& otherName, SettlementType otherType): name(otherName), type(otherType){}
 Settlement::Settlement(const Settlement& other): name(other.name), type(other.type){}
 
-// Destructor do default destructor
+// Destructor - Default
 
 // Operators
 Settlement& Settlement::operator=(const Settlement& other){

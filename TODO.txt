@@ -1,26 +1,12 @@
-
-
-
-
-Tests + Check if we have uncessary memory in heap instead of stack
-
-
-
+RO3 - finish BaseActions - Did only AddFacility
 
 RO5 everywhere - RO5 implementations:
 simulation.cpp
 plan.cpp
-selection_policy.cpp
+
 Plan::setSelectionPolicy RO5
 
-
-
-
-
-Decide if we should remove unnecessary RO3 implementation
-Check memory leaks
-implement isValid with param check?
+Check for memory leaks at the end 
 overcome all warnings
+implement isValid with param check?
 
---- last things  ---
-fix isValid 

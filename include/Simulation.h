@@ -13,10 +13,13 @@ class SelectionPolicy;
 class Simulation {
     public:
         Simulation(const string &configFilePath);
-        Simulation(const Simulation& simulation);
+        /*--------------------RO3--------------------*/
+        Simulation(const Simulation& other);
         ~Simulation();
-
         Simulation& operator=(const Simulation& other);
+
+        /*-------------------OTHER-------------------*/
+
         void start();
         void addPlan(const Settlement &settlement, SelectionPolicy *selectionPolicy);
         void addAction(BaseAction *action);
@@ -37,7 +40,7 @@ class Simulation {
         bool isRunning;
         int planCounter; //For assigning unique plan IDs
         vector<BaseAction*> actionsLog;
-        vector<Plan> plans;
+        vector<Plan> plans; 
         vector<Settlement*> settlements;
         vector<FacilityType> facilitiesOptions;
 };

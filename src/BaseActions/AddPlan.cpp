@@ -2,9 +2,12 @@
 
 // Constructors
 AddPlan::AddPlan(const string &settlementName, const string &selectionPolicy):BaseAction::BaseAction(),settlementName(settlementName), selectionPolicy(selectionPolicy){}
-
+AddPlan::AddPlan(const AddPlan& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()),settlementName(other.settlementName), selectionPolicy(other.selectionPolicy){}
 
 // Destructor - Default
+
+// Operators
+AddPlan& AddPlan::operator=(const AddPlan& other){return *this;}
 
 // Other methods 
 void AddPlan::act(Simulation &simulation){

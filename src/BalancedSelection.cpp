@@ -4,7 +4,7 @@
 BalancedSelection::BalancedSelection(int LifeQualityScore, int EconomyScore, int EnvironmentScore):LifeQualityScore(LifeQualityScore),EconomyScore(EconomyScore),EnvironmentScore(EnvironmentScore){}
 BalancedSelection::BalancedSelection(const BalancedSelection& other):LifeQualityScore(other.LifeQualityScore),EconomyScore(other.EconomyScore),EnvironmentScore(other.EnvironmentScore){}
 
-// Destructor (Default)
+// Destructor - Default
 
 // Operators
 BalancedSelection& BalancedSelection::operator=(const BalancedSelection& other){

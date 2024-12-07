@@ -2,8 +2,12 @@
 
 // Constructor
 ChangePlanPolicy::ChangePlanPolicy(const int planId, const string &newPolicy): BaseAction::BaseAction(),planId(planId), newPolicy(newPolicy){}
+ChangePlanPolicy::ChangePlanPolicy(const ChangePlanPolicy& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()),planId(other.planId), newPolicy(other.newPolicy){}
 
-// Desctructor - Default
+// Destructor - Default
+
+// Operators
+ChangePlanPolicy& ChangePlanPolicy::operator=(const ChangePlanPolicy& other){return *this;}
 
 // Other methods
 void ChangePlanPolicy::act(Simulation &simulation){

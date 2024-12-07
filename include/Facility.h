@@ -19,8 +19,12 @@ enum class FacilityCategory {
 class FacilityType {
     public:
         FacilityType(const string &name, const FacilityCategory category, const int price, const int lifeQuality_score, const int economy_score, const int environment_score);
+        /*--------------------RO3--------------------*/ 
         FacilityType(const FacilityType& other);
+        ~FacilityType() = default;
         FacilityType& operator=(const FacilityType& other);
+
+        /*-------------------OTHER-------------------*/ 
         const string& getName() const ;
         int getCost() const;
         int getLifeQualityScore() const;
@@ -44,8 +48,12 @@ class Facility: public FacilityType {
     public:
         Facility(const string &name, const string &settlementName, const FacilityCategory category, const int price, const int lifeQuality_score, const int economy_score, const int environment_score);
         Facility(const FacilityType &type, const string &settlementName);
+        /*--------------------RO3--------------------*/ 
         Facility(const Facility& other);
+        ~Facility() = default;
         Facility& operator=(const Facility& other);
+
+        /*-------------------OTHER-------------------*/ 
         Facility* clone();
         const string &getSettlementName() const;
         const int getTimeLeft() const;
