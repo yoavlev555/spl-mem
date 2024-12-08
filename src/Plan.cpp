@@ -5,13 +5,13 @@ using namespace std;
 
 // Constructors
 Plan::Plan(const int planId, const Settlement &settlement, SelectionPolicy *selectionPolicy, const vector<FacilityType> &facilityOptions)
-:plan_id(planId),settlement(settlement),selectionPolicy(selectionPolicy),facilityOptions(facilityOptions),status(PlanStatus::AVALIABLE),facilities(vector<Facility*>()),underConstruction(vector<Facility*>()){
+:plan_id(planId),settlement(settlement),selectionPolicy(selectionPolicy),facilityOptions(facilityOptions),status(PlanStatus::AVALIABLE),facilities(),underConstruction(){
     life_quality_score = 0;
     environment_score = 0;
     economy_score = 0;
 }
-Plan::Plan(const Plan& other,Settlement& otherSettlement)
-:plan_id(other.plan_id),settlement(otherSettlement),status(other.status), facilityOptions(other.facilityOptions), life_quality_score(other.life_quality_score), environment_score(other.environment_score), economy_score(other.economy_score),facilities(),underConstruction(){
+Plan::Plan(const Plan& other,Settlement& otherSettlement, const vector<FacilityType> &otherFacilityOptions)
+:plan_id(other.plan_id),settlement(otherSettlement),status(other.status), facilityOptions(otherFacilityOptions), life_quality_score(other.life_quality_score), environment_score(other.environment_score), economy_score(other.economy_score),facilities(),underConstruction(){
     selectionPolicy = other.selectionPolicy->clone();
 
     for (int i=0; i <int(other.facilities.size()); i++){
@@ -57,15 +57,17 @@ Plan::~Plan(){
     delete selectionPolicy;
 
     for(int i=0; i < int(facilities.size()); i++){
-        if (facilities.at(i) != nullptr)
         delete facilities.at(i);
-        facilities.at(i) = nullptr;
     }
+
+    facilities.clear();
 
     for(int i=0; i < int(underConstruction.size()); i++){
         delete underConstruction.at(i);
-        underConstruction.at(i)= nullptr;
     }
+
+    underConstruction.clear();
+
 }
 
 // Operators - Deleted
@@ -122,7 +124,7 @@ void Plan::step(){
     }
 
     status = PlanStatus::BUSY;
-    /*
+    
     vector<Facility*>::iterator iter = underConstruction.begin();
     while(iter != underConstruction.end()){
         if((*iter)->step() == FacilityStatus::OPERATIONAL){
@@ -135,17 +137,16 @@ void Plan::step(){
         else{
             iter++;
         }
-    */
 
-    for (int i=0; i < int(underConstruction.size());){
-        FacilityStatus temp = underConstruction.at(i)->step();
-        if (temp == FacilityStatus::OPERATIONAL){
-            addFacility(underConstruction.at(i));
-            underConstruction.erase(underConstruction.begin() + i);
-        }
-        else{
-            i++;
-        }
+    // for (int i=0; i < int(underConstruction.size());){
+    //     FacilityStatus temp = underConstruction.at(i)->step();
+    //     if (temp == FacilityStatus::OPERATIONAL){
+    //         addFacility(underConstruction.at(i));
+    //         underConstruction.erase(underConstruction.begin() + i);
+    //     }
+    //     else{
+    //         i++;
+    //     }
     }
 
     if(int(underConstruction.size()) < int(settlement.getMaxCapacity())){

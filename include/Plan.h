@@ -14,7 +14,7 @@ class Plan {
     public:
         Plan(const int planId, const Settlement &settlement, SelectionPolicy *selectionPolicy, const vector<FacilityType> &facilityOptions);
         Plan(const int planId, const Settlement &settlement, SelectionPolicy *selectionPolicy, const vector<FacilityType> &facilityOptions, int lifeScore, int economyScore, int enviromentScore);
-        Plan(const Plan& other,Settlement& otherSettlement);
+        Plan(const Plan& other,Settlement& otherSettlement, const vector<FacilityType> &facilityOptions);
         /*--------------------RO3--------------------*/ 
         Plan(const Plan& other);
         ~Plan();

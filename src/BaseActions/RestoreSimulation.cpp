@@ -17,9 +17,6 @@ void RestoreSimulation::act(Simulation &simulation){
         std::cout<<BaseAction::getErrorMsg()<<std::endl;
     }
     else {
-
-       
-       
         simulation = *backup;
         BaseAction::complete();
     }

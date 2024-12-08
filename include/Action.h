@@ -117,7 +117,7 @@ class PrintPlanStatus: public BaseAction {
     public:
         PrintPlanStatus(int planId);
         /*--------------------RO3--------------------*/ 
-        //PrintPlanStatus(const PrintPlanStatus& other);
+        PrintPlanStatus(const PrintPlanStatus& other);
         ~PrintPlanStatus() = default;
         PrintPlanStatus& operator=(const PrintPlanStatus& other);
 

@@ -6,7 +6,7 @@
 using namespace std;
 
 // Constructors
-Simulation::Simulation(const string &configFilePath):isRunning(false), planCounter(0), plans(vector<Plan>()), facilitiesOptions(vector<FacilityType>()), settlements(vector<Settlement*>()), actionsLog(vector<BaseAction*>()){
+Simulation::Simulation(const string &configFilePath):isRunning(false), planCounter(0), plans(), facilitiesOptions(), settlements(), actionsLog(){
     string line;
     ifstream MyReadFile(configFilePath);
     while (getline (MyReadFile, line)){
@@ -82,8 +82,9 @@ Simulation::Simulation(const string &configFilePath):isRunning(false), planCount
 }
 
 
-Simulation::Simulation(const Simulation& other):isRunning(other.isRunning),planCounter(other.planCounter), facilitiesOptions(other.facilitiesOptions), settlements(vector<Settlement*>()),actionsLog(vector<BaseAction*>()){ 
+Simulation::Simulation(const Simulation& other):isRunning(other.isRunning),planCounter(other.planCounter), settlements(),actionsLog(){ 
     
+    facilitiesOptions = other.facilitiesOptions;
     for(int i=0; i<other.actionsLog.size(); i++){
         actionsLog.push_back(other.actionsLog.at(i) -> clone());
     }
@@ -93,7 +94,7 @@ Simulation::Simulation(const Simulation& other):isRunning(other.isRunning),planC
     }
 
     for(int i =0; i < other.plans.size(); i++){
-        plans.push_back(Plan(other.plans.at(i),getSettlement(other.plans.at(i).getSettlement().getName())));
+        plans.push_back(Plan(other.plans.at(i),getSettlement(other.plans.at(i).getSettlement().getName()),facilitiesOptions));
     }
 }
 
@@ -121,13 +122,12 @@ Simulation& Simulation::operator=(const Simulation& other){
     if(this != &other){
         isRunning = other.isRunning;
         planCounter = other.planCounter;
-        facilitiesOptions = other.facilitiesOptions;
+        
 
         plans.clear();
-       
-        for (int i=0; i < int(other.plans.size());i++){
-            plans.push_back((Plan(other.plans.at(i))));
-        } 
+        facilitiesOptions.clear();
+
+        facilitiesOptions = other.facilitiesOptions;
 
         for (int i=0; i < int(settlements.size());i++){
             delete settlements.at(i);
@@ -138,18 +138,22 @@ Simulation& Simulation::operator=(const Simulation& other){
         }
 
         settlements.clear();
-        std::cout << to_string(settlements.size()) << std::endl;
+        //std::cout << to_string(settlements.size()) << std::endl;
         actionsLog.clear();
         
         for(int i=0 ; i < int(other.settlements.size()); i++)
         {
-            std::cout<< (other.settlements.at(i)->toString()) << std::endl;
+            //std::cout<< (other.settlements.at(i)->toString()) << std::endl;
             settlements.push_back(other.settlements.at(i)->clone());
         }
         for(int i=0 ; i < int(other.actionsLog.size()); i++)
         {
             actionsLog.push_back(other.actionsLog.at(i)->clone());
         }
+       
+        for (int i=0; i < int(other.plans.size());i++){
+            plans.push_back((Plan(other.plans.at(i),getSettlement(other.plans.at(i).getSettlement().getName()),facilitiesOptions)));
+        } 
     }
     
     return *this;
@@ -159,7 +163,7 @@ Simulation& Simulation::operator=(Simulation&& other){
     if(this != &other){
         isRunning = other.isRunning;
         planCounter = other.planCounter;
-        facilitiesOptions = other.facilitiesOptions;
+        
 
         
 
@@ -290,6 +294,10 @@ void Simulation::start(){
             
             action->act(*this);
             actionsLog.push_back(action);
+
+            for(int i=0; i<facilitiesOptions.size(); i++){
+                cout << facilitiesOptions.at(i).getName() <<endl;
+            }
         }
         else{
                 cout<< "Нир Сурани – настоящий король" << endl;

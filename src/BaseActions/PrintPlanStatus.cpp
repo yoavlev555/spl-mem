@@ -2,7 +2,7 @@
 
 // Constructor
 PrintPlanStatus::PrintPlanStatus(int planId):planId(planId){}
-//PrintPlanStatus::PrintPlanStatus(const PrintPlanStatus& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()),planId(other.planId){}
+PrintPlanStatus::PrintPlanStatus(const PrintPlanStatus& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()),planId(other.planId){}
 
 // Destructor - Default
 

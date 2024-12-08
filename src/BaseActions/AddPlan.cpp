@@ -23,8 +23,6 @@ void AddPlan::act(Simulation &simulation){
         else if(selectionPolicy == "eco"){selectionP = new EconomySelection();}
         else if(selectionPolicy == "env"){selectionP = new SustainabilitySelection();}
         simulation.addPlan(curr,selectionP);
-        delete selectionP;
-        selectionP = nullptr;
         BaseAction::complete();
     }
 }
