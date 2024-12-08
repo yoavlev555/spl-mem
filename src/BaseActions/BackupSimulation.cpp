@@ -10,7 +10,6 @@ BackupSimulation::BackupSimulation(const BackupSimulation& other):BaseAction::Ba
 // Operators
 BackupSimulation& BackupSimulation::operator=(const BackupSimulation& other){return *this;}
 
-
 // Overrides
 void BackupSimulation::act(Simulation &simulation){
     delete backup;
@@ -18,7 +17,7 @@ void BackupSimulation::act(Simulation &simulation){
     BaseAction::complete();
 }
 
-BackupSimulation *BackupSimulation::clone() const{return new BackupSimulation();}
+BackupSimulation *BackupSimulation::clone() const{return new BackupSimulation(*this);}
 const string BackupSimulation::toString() const{return "backup " + BaseAction::getStatusAsString();}
 
 

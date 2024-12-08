@@ -1,8 +1,8 @@
 #include "Action.h"
 
 //Constructor
-SimulateStep::SimulateStep(const int numOfSteps):BaseAction::BaseAction(),numOfSteps(numOfSteps){}
-SimulateStep::SimulateStep(const SimulateStep& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()),numOfSteps(other.numOfSteps){}
+SimulateStep::SimulateStep(const int numOfSteps):BaseAction::BaseAction(), numOfSteps(numOfSteps){}
+SimulateStep::SimulateStep(const SimulateStep& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()), numOfSteps(other.numOfSteps){}
 
 // Destructor - Default
 
@@ -18,5 +18,5 @@ void SimulateStep::act(Simulation &simulation){
     BaseAction::complete();
 }
 
-SimulateStep* SimulateStep::clone() const{return new SimulateStep(numOfSteps);}
+SimulateStep* SimulateStep::clone() const{return new SimulateStep(*this);}
 const string SimulateStep::toString() const{return "step " + std::to_string(numOfSteps) + " " + BaseAction::getStatusAsString();}

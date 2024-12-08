@@ -1,9 +1,9 @@
 #include "Action.h"
 
 // Constructor
-BaseAction::BaseAction():status(ActionStatus::ERROR), errorMsg(""){}
-BaseAction::BaseAction(const BaseAction& other):status(other.status),errorMsg(other.errorMsg){}
-BaseAction::BaseAction(const ActionStatus& otherStatus, const string otherMsg):status(otherStatus),errorMsg(otherMsg){}
+BaseAction::BaseAction():errorMsg(""), status(ActionStatus::ERROR){}
+BaseAction::BaseAction(const BaseAction& other):errorMsg(other.errorMsg), status(other.status){}
+BaseAction::BaseAction(const ActionStatus& otherStatus, const string otherMsg):errorMsg(otherMsg), status(otherStatus){}
 
 // Destructor - Default
 
@@ -39,13 +39,13 @@ const string BaseAction::getStatusAsString() const{
     string s;
     switch (status){
         case ActionStatus::ERROR:
-            s = "Error";
+            s = "ERROR";
             break;
         case ActionStatus::COMPLETED:
-            s = "Completed";
+            s = "COMPLETED";
             break;
     }
-
+    
     return s;
 }
 

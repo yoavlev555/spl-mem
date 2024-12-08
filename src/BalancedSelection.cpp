@@ -1,4 +1,5 @@
 #include "SelectionPolicy.h"
+#include<bits/stdc++.h> 
 
 // Constructors
 BalancedSelection::BalancedSelection(int LifeQualityScore, int EconomyScore, int EnvironmentScore):LifeQualityScore(LifeQualityScore),EconomyScore(EconomyScore),EnvironmentScore(EnvironmentScore){}
@@ -33,23 +34,9 @@ const string BalancedSelection::getFullType() const{
 //Other Methods
 
 int BalancedSelection::checkDiff(int lifeScore, int economyScore, int environmentScore){
-    if(lifeScore > economyScore){
-        if(economyScore > environmentScore){
-            return lifeScore - environmentScore;
-        }
-        else{
-            return lifeScore - economyScore;
-        }
-    }
-
-    else{
-        if(lifeScore > environmentScore){
-            return economyScore - environmentScore;
-        }
-        else{
-            return economyScore - lifeScore;
-        }
-    }
+    int maximum = std::max({lifeScore,economyScore,environmentScore});
+    int minimum = std::min({lifeScore,economyScore,environmentScore});
+    return maximum - minimum;
     
 }
 
@@ -58,20 +45,19 @@ const string BalancedSelection::toString() const{
 }
 
 const FacilityType& BalancedSelection::selectFacility(const vector<FacilityType>& facilitiesOptions){
-    int index = 0;
+
     int minDiff = INT32_MAX; // We want to get the minimum value after reduction
-    int i = 0;
-    for (FacilityType ft:facilitiesOptions){
-        int current = checkDiff(LifeQualityScore + ft.getLifeQualityScore(), EconomyScore + ft.getEconomyScore(), EnvironmentScore + ft.getEnvironmentScore());
-        if( current < minDiff){
-            minDiff = current;
+    int index = 0;
+    for(int i = 0; i < int(facilitiesOptions.size()); i++){
+        if(minDiff > checkDiff(LifeQualityScore + facilitiesOptions.at(i).getLifeQualityScore(), EconomyScore + facilitiesOptions.at(i).getEconomyScore(), EnvironmentScore + facilitiesOptions.at(i).getEnvironmentScore())){
+            minDiff = checkDiff(LifeQualityScore + facilitiesOptions.at(i).getLifeQualityScore(), EconomyScore + facilitiesOptions.at(i).getEconomyScore(), EnvironmentScore + facilitiesOptions.at(i).getEnvironmentScore());
             index = i;
         }
-        i=i+1;
+        
     }
-    const FacilityType& res = facilitiesOptions.at(index);
-    LifeQualityScore += res.getLifeQualityScore();
-    EconomyScore += res.getEconomyScore();
-    EnvironmentScore += res.getEnvironmentScore();
-    return res;
+    
+    LifeQualityScore = LifeQualityScore + facilitiesOptions.at(index).getLifeQualityScore();
+    EconomyScore = EconomyScore + facilitiesOptions.at(index).getEconomyScore();
+    EnvironmentScore = EnvironmentScore + facilitiesOptions.at(index).getEnvironmentScore();
+    return facilitiesOptions.at(index);
 }

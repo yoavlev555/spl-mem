@@ -22,6 +22,6 @@ void RestoreSimulation::act(Simulation &simulation){
     }
 }
 
-RestoreSimulation *RestoreSimulation::clone() const{return new RestoreSimulation();}
+RestoreSimulation *RestoreSimulation::clone() const{return new RestoreSimulation(*this);}
 const string RestoreSimulation::toString() const{return "restore " + BaseAction::getStatusAsString();}
 

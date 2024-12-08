@@ -1,8 +1,8 @@
 #include "Action.h"
 
 // Constructor
-ChangePlanPolicy::ChangePlanPolicy(const int planId, const string &newPolicy): BaseAction::BaseAction(),planId(planId), newPolicy(newPolicy){}
-ChangePlanPolicy::ChangePlanPolicy(const ChangePlanPolicy& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()),planId(other.planId), newPolicy(other.newPolicy){}
+ChangePlanPolicy::ChangePlanPolicy(const int planId, const string &newPolicy): BaseAction::BaseAction(), planId(planId), newPolicy(newPolicy){}
+ChangePlanPolicy::ChangePlanPolicy(const ChangePlanPolicy& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()), planId(other.planId), newPolicy(other.newPolicy){}
 
 // Destructor - Default
 
@@ -13,7 +13,7 @@ ChangePlanPolicy& ChangePlanPolicy::operator=(const ChangePlanPolicy& other){ret
 void ChangePlanPolicy::act(Simulation &simulation){
     if(planId >= simulation.getPlansCounter() || newPolicy == simulation.getPlan(planId).getPolicy().getType()){
         BaseAction::error("Cannot change selection policy");
-        std::cout<<BaseAction::getErrorMsg()<<std::endl;
+        std::cout << BaseAction::getErrorMsg() << std::endl;
     }
     else{
         Plan& p = simulation.getPlan(planId);
@@ -30,8 +30,6 @@ void ChangePlanPolicy::act(Simulation &simulation){
     }
 }
 
- ChangePlanPolicy *ChangePlanPolicy::clone() const{
-    return new ChangePlanPolicy(planId,newPolicy);
- } 
+ ChangePlanPolicy *ChangePlanPolicy::clone() const{return new ChangePlanPolicy(*this);} 
 
  const string ChangePlanPolicy::toString() const{return "changePolicy " + std::to_string(planId) + " " + newPolicy + " " + BaseAction::getStatusAsString();}

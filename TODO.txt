@@ -1,12 +1,90 @@
-RO3 - finish BaseActions - Did only AddFacility
 
-RO5 everywhere - RO5 implementations:
-simulation.cpp
-plan.cpp
+- Plan& Simulation::getPlan added exception
+logs
+russian
 
-Plan::setSelectionPolicy RO5
 
-Check for memory leaks at the end 
-overcome all warnings
-implement isValid with param check?
 
+
+
+
+
+step 1, planStatus 0, planStatus 1, settlement anotherVillage 0, backup, log, plan anotherVillage bal, planStatus 2, restore, planStatus 2, facility road 1 2 1 1 1, plan anotherVillage bal, step 2, planStatus 2, close
+
+PlanID: 0
+SettlementName:KfarSPL
+LifeQualityScore: 0
+EconomyScore: 0
+EnvironmentScore: 0
+PlanID: 1
+SettlementName: KiryatSPL
+LifeQualityScore: 0
+EconomyScore: 0
+EnvironmentScore: 0
+PlanID: 2
+SettlementName: anotherVillage
+LifeQualityScore: 1
+EconomyScore: 1
+EnvironmentScore: 1
+
+-------- Archive --------=
+Plan& Plan::operator=(const Plan& other){
+    if(this != &other){
+        plan_id = other.plan_id;
+        status = other.status;
+        life_quality_score = other.life_quality_score;
+        environment_score = other.environment_score;
+        economy_score = other.economy_score;
+
+        delete selectionPolicy;
+        selectionPolicy = other.selectionPolicy->clone();
+
+        for(int i = 0; i < int(facilities.size()); i++){
+            delete facilities.at(i);
+        }
+
+        for(int i = 0; i < int(underConstruction.size()); i++){
+            delete underConstruction.at(i);
+        }
+
+        facilities.clear();
+        underConstruction.clear();
+
+        for(int i = 0; i < int(other.facilities.size()); i++){
+            facilities.push_back(other.facilities.at(i)->clone());
+        }
+
+        for(int i = 0; i < int(other.underConstruction.size()); i++){
+            underConstruction.push_back(other.underConstruction.at(i)->clone());
+        } 
+    }
+    return *this;
+}
+Plan& Plan::operator=(Plan&& other){
+    if (&other != this){
+        plan_id = other.plan_id;
+        status = other.status;
+        life_quality_score = other.life_quality_score;
+        economy_score = other.economy_score;
+        environment_score = other.environment_score;
+
+        selectionPolicy = other.selectionPolicy;
+        other.selectionPolicy = nullptr;
+        
+        for(int i = 0; i < int(facilities.size()); i++){
+            delete facilities.at(i);
+        }
+
+        for(int i = 0; i< int(underConstruction.size()); i++){
+            delete underConstruction.at(i);
+        }
+
+        facilities = other.facilities;
+        other.facilities.clear();
+
+        underConstruction = other.underConstruction;
+        other.underConstruction.clear();
+    }
+
+    return *this;
+}

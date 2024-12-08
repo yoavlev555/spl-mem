@@ -89,6 +89,8 @@ class SustainabilitySelection: public SelectionPolicy {
         SustainabilitySelection *clone() const override;
         const string getType() const override;
         const string getFullType() const override;
+        
     private:
         int lastSelectedIndex;
 };
+
