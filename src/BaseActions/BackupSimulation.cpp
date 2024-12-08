@@ -18,7 +18,7 @@ void BackupSimulation::act(Simulation &simulation){
     BaseAction::complete();
 }
 
-BackupSimulation *BackupSimulation::clone() const{return new BackupSimulation();}
+BackupSimulation *BackupSimulation::clone() const{return new BackupSimulation(*this);}
 const string BackupSimulation::toString() const{return "backup " + BaseAction::getStatusAsString();}
 
 

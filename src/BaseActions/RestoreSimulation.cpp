@@ -17,11 +17,14 @@ void RestoreSimulation::act(Simulation &simulation){
         std::cout<<BaseAction::getErrorMsg()<<std::endl;
     }
     else {
+
+       
+       
         simulation = *backup;
         BaseAction::complete();
     }
 }
 
-RestoreSimulation *RestoreSimulation::clone() const{return new RestoreSimulation();}
+RestoreSimulation *RestoreSimulation::clone() const{return new RestoreSimulation(*this);}
 const string RestoreSimulation::toString() const{return "restore " + BaseAction::getStatusAsString();}
 

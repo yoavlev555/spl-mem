@@ -17,7 +17,7 @@ void PrintActionsLog::act(Simulation &simulation){
     BaseAction::complete();
 }
 
-PrintActionsLog *PrintActionsLog::clone() const{return new PrintActionsLog();}
+PrintActionsLog *PrintActionsLog::clone() const{return new PrintActionsLog(*this);}
 const string PrintActionsLog::toString() const{return "log: " + BaseAction::getStatusAsString();}
 
 

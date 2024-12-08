@@ -25,6 +25,6 @@ void Close::act(Simulation &simulation){
     simulation.close();
 }
 
-Close *Close::clone() const{return new Close();}
+Close *Close::clone() const{return new Close(*this);}
 const string Close::toString() const{return "close " + BaseAction::getStatusAsString();}
 

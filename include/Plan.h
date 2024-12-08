@@ -13,6 +13,7 @@ enum class PlanStatus {
 class Plan {
     public:
         Plan(const int planId, const Settlement &settlement, SelectionPolicy *selectionPolicy, const vector<FacilityType> &facilityOptions);
+        Plan(const Plan& other,Settlement& otherSettlement);
         /*--------------------RO3--------------------*/ 
         Plan(const Plan& other);
         ~Plan();

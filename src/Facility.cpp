@@ -8,7 +8,7 @@ Facility::Facility(const FacilityType &type, const string &settlementName)
 :FacilityType(type.getName(),type.getCategory(),type.getCost(),type.getLifeQualityScore(),type.getEconomyScore(),type.getEnvironmentScore()),settlementName(settlementName),timeLeft(type.getCost()), status(FacilityStatus::UNDER_CONSTRUCTIONS){}
 
 Facility::Facility(const Facility& other)
-:FacilityType::FacilityType(other),settlementName(other.settlementName), timeLeft(other.price), status(other.status){}
+:FacilityType::FacilityType(other.name,other.category,other.price,other.lifeQuality_score,other.economy_score,other.environment_score),settlementName(other.settlementName), timeLeft(other.price), status(other.status){}
 
 // Destructor - Default
 

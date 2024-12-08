@@ -19,7 +19,7 @@ void AddSettlement::act(Simulation &simulation){
         BaseAction::complete();
     }
 }
-AddSettlement *AddSettlement::clone() const{return new AddSettlement(settlementName,settlementType);}
+AddSettlement *AddSettlement::clone() const{return new AddSettlement(*this);}
 const string AddSettlement::toString() const{
     int type;
     if (settlementType == SettlementType::VILLAGE){type = 0;}

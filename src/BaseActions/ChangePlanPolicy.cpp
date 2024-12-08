@@ -30,8 +30,6 @@ void ChangePlanPolicy::act(Simulation &simulation){
     }
 }
 
- ChangePlanPolicy *ChangePlanPolicy::clone() const{
-    return new ChangePlanPolicy(planId,newPolicy);
- } 
+ ChangePlanPolicy *ChangePlanPolicy::clone() const{return new ChangePlanPolicy(*this);} 
 
  const string ChangePlanPolicy::toString() const{return "changePolicy " + std::to_string(planId) + " " + newPolicy + " " + BaseAction::getStatusAsString();}

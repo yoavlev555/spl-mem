@@ -22,5 +22,5 @@ void PrintPlanStatus::act(Simulation &simulation){
     }
 }
 
-PrintPlanStatus *PrintPlanStatus::clone() const{return new PrintPlanStatus(planId);}
+PrintPlanStatus *PrintPlanStatus::clone() const{return new PrintPlanStatus(*this);}
 const string PrintPlanStatus::toString() const{return "planStatus " + std::to_string(planId) + " " +BaseAction::getStatusAsString();}

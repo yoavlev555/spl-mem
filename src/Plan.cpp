@@ -10,16 +10,30 @@ Plan::Plan(const int planId, const Settlement &settlement, SelectionPolicy *sele
     environment_score = 0;
     economy_score = 0;
 }
-Plan::Plan(const Plan& other):Plan(other.plan_id,other.settlement,other.selectionPolicy->clone(),other.facilityOptions){
-    life_quality_score = other.life_quality_score;
-    environment_score = other.environment_score;
-    economy_score = other.economy_score;
-    for(Facility* f : other.facilities){
-        facilities.push_back(f->clone());
+Plan::Plan(const Plan& other,Settlement& otherSettlement)
+:plan_id(other.plan_id),settlement(otherSettlement),status(other.status), facilityOptions(other.facilityOptions), life_quality_score(other.life_quality_score), environment_score(other.environment_score), economy_score(other.economy_score),facilities(vector<Facility*>()),underConstruction(vector<Facility*>()){
+    selectionPolicy = other.selectionPolicy->clone();
+
+    for (int i=0; i <int(other.facilities.size()); i++){
+        facilities.push_back(other.facilities.at(i) -> clone());
     }
 
-    for(Facility* f : other.underConstruction){
-        underConstruction.push_back(f->clone());
+    for (int i=0; i <int(other.underConstruction.size()); i++){
+        underConstruction.push_back(other.underConstruction.at(i) -> clone());
+    }
+}
+
+
+Plan::Plan(const Plan& other):plan_id(other.plan_id),settlement(other.settlement),status(other.status), facilityOptions(other.facilityOptions), life_quality_score(other.life_quality_score), environment_score(other.environment_score), economy_score(other.economy_score),facilities(vector<Facility*>()),underConstruction(vector<Facility*>()){
+   
+    selectionPolicy = other.selectionPolicy->clone();
+
+    for (int i=0; i <int(other.facilities.size()); i++){
+        facilities.push_back(other.facilities.at(i) -> clone());
+    }
+
+    for (int i=0; i <int(other.underConstruction.size()); i++){
+        underConstruction.push_back(other.underConstruction.at(i) -> clone());
     }
 }
 Plan::Plan(Plan&& other):plan_id(other.plan_id),settlement(other.settlement),facilityOptions(other.facilityOptions),status(other.status),life_quality_score(other.life_quality_score), economy_score(other.economy_score), environment_score(other.environment_score){
