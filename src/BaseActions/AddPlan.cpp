@@ -34,5 +34,7 @@ bool AddPlan::isValidPolicy(){
     }
     return true;
 }
+
 AddPlan *AddPlan::clone() const{return new AddPlan(*this);}
+
 const string AddPlan::toString() const{return "plan " + settlementName + " " + selectionPolicy + " " + BaseAction::getStatusAsString();}

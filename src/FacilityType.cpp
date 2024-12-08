@@ -23,7 +23,6 @@ const int FacilityType::getFacilityCategory() const{
     else if (category == FacilityCategory::ECONOMY){return 1;}
     else {return 2;}
 }
-
 FacilityCategory FacilityType::getCategory(int i){
     if(i == 0) {return FacilityCategory::LIFE_QUALITY;}
     else if(i == 1) {return FacilityCategory::ECONOMY;}

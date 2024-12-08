@@ -19,7 +19,7 @@ class Simulation {
         Simulation& operator=(const Simulation& other);
 
         /*--------------------RO5--------------------*/
-        // Simulation(Simulation&& other);
+        Simulation(Simulation&& other);
         Simulation& operator=(Simulation&& other);
 
         /*-------------------OTHER-------------------*/

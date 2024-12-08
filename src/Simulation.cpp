@@ -80,8 +80,6 @@ Simulation::Simulation(const string &configFilePath):isRunning(false), planCount
         }
     }
 }
-
-
 Simulation::Simulation(const Simulation& other):isRunning(other.isRunning),planCounter(other.planCounter), plans(),facilitiesOptions(other.facilitiesOptions.begin(),other.facilitiesOptions.end()), settlements(),actionsLog(){ 
     
     facilitiesOptions = other.facilitiesOptions;
@@ -97,6 +95,25 @@ Simulation::Simulation(const Simulation& other):isRunning(other.isRunning),planC
         plans.push_back(Plan(other.plans.at(i),getSettlement(other.plans.at(i).getSettlement().getName()),facilitiesOptions));
     }
 }
+Simulation::Simulation(Simulation&& other):isRunning(other.isRunning),planCounter(other.planCounter),plans(),facilitiesOptions(std::move(other.facilitiesOptions)),settlements(),actionsLog(){  
+    for(int i=0; i < int(other.settlements.size()); i++){
+        settlements.push_back(other.settlements.at(i));
+        other.settlements.at(i) = nullptr;
+    }
+
+    for(int i=0; i < int(other.actionsLog.size()); i++){
+        actionsLog.push_back(other.actionsLog.at(i));
+        other.actionsLog.at(i) = nullptr;
+    }
+
+    other.actionsLog.clear();
+    other.settlements.clear();
+
+    for(int i =0; i < int(other.plans.size()); i++){
+        plans.push_back(Plan(other.plans.at(i),getSettlement(other.plans.at(i).getSettlement().getName()),facilitiesOptions));
+    }
+}
+
 
 // Destructor
 Simulation::~Simulation(){
