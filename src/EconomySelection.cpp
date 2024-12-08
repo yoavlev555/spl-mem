@@ -15,7 +15,6 @@ EconomySelection& EconomySelection::operator=(const EconomySelection& other){
     return *this;
 }
 
-
 // Getters 
 const string EconomySelection::getType() const{return "eco";}
 const string EconomySelection::getFullType() const{return "Economy";}

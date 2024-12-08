@@ -32,7 +32,6 @@ const string BalancedSelection::getFullType() const{
 }
 
 //Other Methods
-
 int BalancedSelection::checkDiff(int lifeScore, int economyScore, int environmentScore){
     int maximum = std::max({lifeScore,economyScore,environmentScore});
     int minimum = std::min({lifeScore,economyScore,environmentScore});

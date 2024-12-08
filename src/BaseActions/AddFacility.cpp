@@ -23,6 +23,7 @@ void AddFacility::act(Simulation &simulation){
 }
 
 AddFacility *AddFacility::clone() const{return new AddFacility(*this);}
+
 const string AddFacility::toString() const{
     int category;
     if (facilityCategory == FacilityCategory::LIFE_QUALITY){category = 0;}

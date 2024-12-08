@@ -23,7 +23,7 @@ void ChangePlanPolicy::act(Simulation &simulation){
         else if(newPolicy == "eco"){p.setSelectionPolicy(new EconomySelection());}
         else if(newPolicy == "env"){p.setSelectionPolicy(new SustainabilitySelection());}
 
-        std::cout << planId << std::endl;
+        std::cout <<"planID: " + planId << std::endl;
         std::cout << "previousPolicy: " << prevPoilcy << std::endl;
         std::cout << "newPolicy: " << p.getPolicy().getFullType() << std::endl;
         BaseAction::complete();

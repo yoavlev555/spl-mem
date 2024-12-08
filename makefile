@@ -35,7 +35,7 @@ link: bin/main.o bin/Settlement.o bin/Auxiliary.o bin/Simulation.o bin/FacilityT
 
 run: bin/main
 	@echo "Running the program..."
-	valgrind --leak-check=full --show-reachable=yes ./bin/main config_file.txt
+	./bin/main config_file.txt
 
 
 clean:

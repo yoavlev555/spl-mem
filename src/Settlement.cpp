@@ -31,6 +31,16 @@ const int Settlement::getMaxCapacity() const{
     }
     return 0;
 }
+SettlementType Settlement::getType(int i){
+    if (i == 0) {
+        return SettlementType::VILLAGE;
+    } else if (i == 1) {
+        return SettlementType::CITY;
+    } else if (i == 2) {
+        return SettlementType::METROPOLIS;
+    }
+    throw std::invalid_argument("Invalid value for SettlementType");
+}
 
 // Other Methods
 string Settlement::SettlementTypeToString (SettlementType s){
@@ -44,21 +54,12 @@ string Settlement::SettlementTypeToString (SettlementType s){
         return "METROPOLIS";
     }
 }
-const string Settlement::toString() const{
 
-    return "Settlement name:" + name + " Type:" + SettlementTypeToString(type); 
-}
 Settlement* Settlement::clone(){
     return new Settlement(*this);
 }
 
-SettlementType Settlement::getType(int i){
-    if (i == 0) {
-        return SettlementType::VILLAGE;
-    } else if (i == 1) {
-        return SettlementType::CITY;
-    } else if (i == 2) {
-        return SettlementType::METROPOLIS;
-    }
-    throw std::invalid_argument("Invalid value for SettlementType");
+const string Settlement::toString() const{
+
+    return "Settlement name:" + name + " Type:" + SettlementTypeToString(type); 
 }
