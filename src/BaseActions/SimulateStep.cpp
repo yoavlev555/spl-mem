@@ -1,8 +1,8 @@
 #include "Action.h"
 
 //Constructor
-SimulateStep::SimulateStep(const int numOfSteps):BaseAction::BaseAction(),numOfSteps(numOfSteps){}
-SimulateStep::SimulateStep(const SimulateStep& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()),numOfSteps(other.numOfSteps){}
+SimulateStep::SimulateStep(const int numOfSteps):BaseAction::BaseAction(), numOfSteps(numOfSteps){}
+SimulateStep::SimulateStep(const SimulateStep& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()), numOfSteps(other.numOfSteps){}
 
 // Destructor - Default
 

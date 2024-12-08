@@ -2,9 +2,9 @@
 
 // Constructors
 AddFacility::AddFacility(const string &facilityName, const FacilityCategory facilityCategory, const int price, const int lifeQualityScore, const int economyScore, const int environmentScore)
-:BaseAction::BaseAction(), facilityName(facilityName),facilityCategory(facilityCategory),price(price),lifeQualityScore(lifeQualityScore),economyScore(economyScore),environmentScore(environmentScore){}
+:BaseAction::BaseAction(), facilityName(facilityName),facilityCategory(facilityCategory), price(price), lifeQualityScore(lifeQualityScore), economyScore(economyScore), environmentScore(environmentScore){}
 
-AddFacility::AddFacility(const AddFacility& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()), facilityName(other.facilityName),facilityCategory(other.facilityCategory),price(other.price),lifeQualityScore(other.lifeQualityScore),economyScore(other.economyScore),environmentScore(other.environmentScore){}
+AddFacility::AddFacility(const AddFacility& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()), facilityName(other.facilityName), facilityCategory(other.facilityCategory), price(other.price), lifeQualityScore(other.lifeQualityScore), economyScore(other.economyScore), environmentScore(other.environmentScore){}
 
 // Destructor - Default
 

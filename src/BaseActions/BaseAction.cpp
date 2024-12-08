@@ -45,7 +45,7 @@ const string BaseAction::getStatusAsString() const{
             s = "COMPLETED";
             break;
     }
-
+    
     return s;
 }
 

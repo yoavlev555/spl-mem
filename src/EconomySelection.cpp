@@ -23,28 +23,20 @@ const string EconomySelection::getFullType() const{return "Economy";}
 
 // Overrides 
 const FacilityType& EconomySelection::selectFacility(const vector<FacilityType>& facilitiesOptions){  
-    vector<int> indexes = vector<int>();
-    int i=0;
-    for (FacilityType ft : facilitiesOptions){
-        if (ft.getCategory()==FacilityCategory::ECONOMY){
-            indexes.push_back(i);
-        }
-        i++;
+    if (lastSelectedIndex >= int(facilitiesOptions.size())) {
+        lastSelectedIndex = 0;
     }
-
-    if (indexes.size()>0){
-        for(int i : indexes){
-            if (i>=lastSelectedIndex){
-                lastSelectedIndex=i;
-                const FacilityType& res = facilitiesOptions.at(lastSelectedIndex);
-                lastSelectedIndex = (lastSelectedIndex + 1) % facilitiesOptions.size();
-                return res;
-            }
+    for (int i = lastSelectedIndex; i < int(facilitiesOptions.size()); i++) {
+        if (facilitiesOptions[i].getCategory() == FacilityCategory::ECONOMY) {
+            lastSelectedIndex = i + 1;
+            return facilitiesOptions[i];
         }
-
-        lastSelectedIndex = indexes.at(0);
-        const FacilityType& res = facilitiesOptions.at(lastSelectedIndex);
-        return res;
+    }
+    for (int i = 0; i < int(lastSelectedIndex); i++) {
+        if (facilitiesOptions[i].getCategory() == FacilityCategory::ECONOMY) {
+            lastSelectedIndex = i + 1;
+            return facilitiesOptions[i];
+        }
     }
     throw std::runtime_error("No Economy Category found in the facilitiesOptions vector");
 }
@@ -56,5 +48,3 @@ EconomySelection* EconomySelection::clone() const{
 const string EconomySelection::toString() const{
     return "last selected index is: " + std::to_string(lastSelectedIndex);
 }
-
-

@@ -1,8 +1,8 @@
 #include "Action.h"
 
 // Constructors
-AddPlan::AddPlan(const string &settlementName, const string &selectionPolicy):BaseAction::BaseAction(),settlementName(settlementName), selectionPolicy(selectionPolicy){}
-AddPlan::AddPlan(const AddPlan& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()),settlementName(other.settlementName), selectionPolicy(other.selectionPolicy){}
+AddPlan::AddPlan(const string &settlementName, const string &selectionPolicy):BaseAction::BaseAction(), settlementName(settlementName), selectionPolicy(selectionPolicy){}
+AddPlan::AddPlan(const AddPlan& other):BaseAction::BaseAction(other.getStatus(), other.getErrorMsg()), settlementName(other.settlementName), selectionPolicy(other.selectionPolicy){}
 
 // Destructor - Default
 
@@ -11,10 +11,11 @@ AddPlan& AddPlan::operator=(const AddPlan& other){return *this;}
 
 // Other methods 
 void AddPlan::act(Simulation &simulation){
-    if(!(simulation.isSettlementExists(settlementName) && isValidPolicy()) ){ // lo haser 34 shurot code
+    if(!(simulation.isSettlementExists(settlementName) && isValidPolicy())){ 
         BaseAction::error("Cannot create this plan");
         std::cout<<BaseAction::getErrorMsg()<<std::endl;
     }
+    
     else{
         Settlement& curr = simulation.getSettlement(settlementName);
         SelectionPolicy* selectionP = nullptr;

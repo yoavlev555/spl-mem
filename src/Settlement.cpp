@@ -1,4 +1,5 @@
 #include "Settlement.h"
+#include <stdexcept>
 
 // Constructors
 Settlement::Settlement(const string& otherName, SettlementType otherType): name(otherName), type(otherType){}
@@ -22,20 +23,21 @@ const int Settlement::getMaxCapacity() const{
     if (type == SettlementType::VILLAGE) {
         return 1;
     }
-    if (type == SettlementType::CITY){
+    else if (type == SettlementType::CITY){
         return 2;
     }
-    else{ 
+    else if (type == SettlementType::METROPOLIS){
         return 3;
     }
+    return 0;
 }
 
 // Other Methods
 string Settlement::SettlementTypeToString (SettlementType s){
-    if (s==SettlementType::VILLAGE) {
+    if (s == SettlementType::VILLAGE) {
         return "VILLAGE";
     }
-    if (s==SettlementType::CITY){
+    if (s == SettlementType::CITY){
         return "CITY";
     }
     else{ 
@@ -51,7 +53,12 @@ Settlement* Settlement::clone(){
 }
 
 SettlementType Settlement::getType(int i){
-    if(i==0){return SettlementType::VILLAGE;}
-    else if(i==1){return SettlementType::CITY;}
-    else if(i==2){return SettlementType::METROPOLIS;}
+    if (i == 0) {
+        return SettlementType::VILLAGE;
+    } else if (i == 1) {
+        return SettlementType::CITY;
+    } else if (i == 2) {
+        return SettlementType::METROPOLIS;
+    }
+    throw std::invalid_argument("Invalid value for SettlementType");
 }

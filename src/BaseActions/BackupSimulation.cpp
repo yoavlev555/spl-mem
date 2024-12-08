@@ -10,7 +10,6 @@ BackupSimulation::BackupSimulation(const BackupSimulation& other):BaseAction::Ba
 // Operators
 BackupSimulation& BackupSimulation::operator=(const BackupSimulation& other){return *this;}
 
-
 // Overrides
 void BackupSimulation::act(Simulation &simulation){
     delete backup;

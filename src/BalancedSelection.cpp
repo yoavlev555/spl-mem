@@ -49,8 +49,8 @@ const FacilityType& BalancedSelection::selectFacility(const vector<FacilityType>
     int minDiff = INT32_MAX; // We want to get the minimum value after reduction
     int index = 0;
     for(int i = 0; i < int(facilitiesOptions.size()); i++){
-        if(minDiff > checkDiff(LifeQualityScore + facilitiesOptions.at(i).getLifeQualityScore(),EconomyScore + facilitiesOptions.at(i).getEconomyScore(),EnvironmentScore + facilitiesOptions.at(i).getEnvironmentScore())){
-            minDiff = checkDiff(LifeQualityScore + facilitiesOptions.at(i).getLifeQualityScore(),EconomyScore + facilitiesOptions.at(i).getEconomyScore(),EnvironmentScore + facilitiesOptions.at(i).getEnvironmentScore());
+        if(minDiff > checkDiff(LifeQualityScore + facilitiesOptions.at(i).getLifeQualityScore(), EconomyScore + facilitiesOptions.at(i).getEconomyScore(), EnvironmentScore + facilitiesOptions.at(i).getEnvironmentScore())){
+            minDiff = checkDiff(LifeQualityScore + facilitiesOptions.at(i).getLifeQualityScore(), EconomyScore + facilitiesOptions.at(i).getEconomyScore(), EnvironmentScore + facilitiesOptions.at(i).getEnvironmentScore());
             index = i;
         }
         

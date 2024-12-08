@@ -85,11 +85,11 @@ Simulation::Simulation(const string &configFilePath):isRunning(false), planCount
 Simulation::Simulation(const Simulation& other):isRunning(other.isRunning),planCounter(other.planCounter), plans(),facilitiesOptions(other.facilitiesOptions.begin(),other.facilitiesOptions.end()), settlements(),actionsLog(){ 
     
     facilitiesOptions = other.facilitiesOptions;
-    for(int i=0; i<int(other.actionsLog.size()); i++){
+    for(int i=0; i < int(other.actionsLog.size()); i++){
         actionsLog.push_back(other.actionsLog.at(i) -> clone());
     }
     
-    for(int i=0; i<int(other.settlements.size()); i++){
+    for(int i=0; i < int(other.settlements.size()); i++){
         settlements.push_back(other.settlements.at(i) -> clone());
     }
 
@@ -97,14 +97,6 @@ Simulation::Simulation(const Simulation& other):isRunning(other.isRunning),planC
         plans.push_back(Plan(other.plans.at(i),getSettlement(other.plans.at(i).getSettlement().getName()),facilitiesOptions));
     }
 }
-
-// Simulation::Simulation(Simulation&& other):isRunning(other.isRunning),planCounter(other.planCounter),plans(other.plans),facilitiesOptions(other.facilitiesOptions){
-//     actionsLog = other.actionsLog;
-//     settlements = other.settlements;
-    
-//     other.actionsLog.clear();
-//     other.settlements.clear();
-// }
 
 // Destructor
 Simulation::~Simulation(){
@@ -138,12 +130,10 @@ Simulation& Simulation::operator=(const Simulation& other){
         }
 
         settlements.clear();
-        //std::cout << to_string(settlements.size()) << std::endl;
         actionsLog.clear();
         
         for(int i=0 ; i < int(other.settlements.size()); i++)
         {
-            //std::cout<< (other.settlements.at(i)->toString()) << std::endl;
             settlements.push_back(other.settlements.at(i)->clone());
         }
         for(int i=0 ; i < int(other.actionsLog.size()); i++)
@@ -163,9 +153,6 @@ Simulation& Simulation::operator=(Simulation&& other){
     if(this != &other){
         isRunning = other.isRunning;
         planCounter = other.planCounter;
-        
-
-        
 
         for (int i=0; i < int(actionsLog.size()); i++){
             delete actionsLog.at(i);
@@ -175,10 +162,8 @@ Simulation& Simulation::operator=(Simulation&& other){
             delete settlements.at(i);
         }
 
-
         plans.clear();
        
-     
         actionsLog = other.actionsLog;
         settlements = other.settlements;
 
@@ -251,7 +236,6 @@ void Simulation::step(){
 }
 
 void Simulation::close(){
-    // delete unused resources
     isRunning = false;
 }
 
@@ -298,7 +282,7 @@ void Simulation::start(){
 
         }
         else{
-                cout<< "Нир Сурани – настоящий король" << endl;
+                cout<< "Input ERROR" << endl;
         }
     }
 }

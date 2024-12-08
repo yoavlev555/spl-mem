@@ -12,10 +12,13 @@ int main(int argc, char** argv){
         cout << "usage: simulation <config_path>" << endl;
         return 0;
     }
-
-    Simulation* s = new Simulation(argv[1]);
-    s->start();
-    delete s;
-    delete backup;
+    
+    string configurationFile = argv[1];
+    Simulation simulation(configurationFile);
+    simulation.start();
+    if(backup != nullptr){
+        delete backup;
+        backup = nullptr;
+    }
     return 0;
 }

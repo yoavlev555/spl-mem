@@ -30,7 +30,6 @@ class Settlement {
         static SettlementType getType(int i);
         Settlement* clone();
 
-
         private:
             const string name;
             SettlementType type;
