@@ -26,7 +26,7 @@ class Settlement {
         SettlementType getType() const;
         const string toString() const;
         static string SettlementTypeToString (SettlementType s);
-        int getMaxCapacity() const;
+        const int getMaxCapacity() const;
         static SettlementType getType(int i);
         Settlement* clone();
 

@@ -82,18 +82,18 @@ Simulation::Simulation(const string &configFilePath):isRunning(false), planCount
 }
 
 
-Simulation::Simulation(const Simulation& other):isRunning(other.isRunning),planCounter(other.planCounter), settlements(),actionsLog(){ 
+Simulation::Simulation(const Simulation& other):isRunning(other.isRunning),planCounter(other.planCounter), plans(),facilitiesOptions(other.facilitiesOptions.begin(),other.facilitiesOptions.end()), settlements(),actionsLog(){ 
     
     facilitiesOptions = other.facilitiesOptions;
-    for(int i=0; i<other.actionsLog.size(); i++){
+    for(int i=0; i<int(other.actionsLog.size()); i++){
         actionsLog.push_back(other.actionsLog.at(i) -> clone());
     }
     
-    for(int i=0; i<other.settlements.size(); i++){
+    for(int i=0; i<int(other.settlements.size()); i++){
         settlements.push_back(other.settlements.at(i) -> clone());
     }
 
-    for(int i =0; i < other.plans.size(); i++){
+    for(int i =0; i < int(other.plans.size()); i++){
         plans.push_back(Plan(other.plans.at(i),getSettlement(other.plans.at(i).getSettlement().getName()),facilitiesOptions));
     }
 }
@@ -200,6 +200,7 @@ Settlement& Simulation::getSettlement(const string &settlementName){
             return *s;
         }
     }
+    throw std::runtime_error("No such settlement exists");
 }
 
 

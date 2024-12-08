@@ -1,12 +1,7 @@
 
-1 simulation.cpp
-2 plan.cpp
-
-Plan::setSelectionPolicy RO5
-
-3 Leaks Check for memory leaks at the end - valgrind --leak-check=full --show-reachable=yes [program-name] [program parameters]
-4 Warnings handling
-5 implement isValid with param check?
+- Plan& Simulation::getPlan added exception
+logs
+russian
 
 
 
@@ -14,19 +9,23 @@ Plan::setSelectionPolicy RO5
 
 
 
+step 1, planStatus 0, planStatus 1, settlement anotherVillage 0, backup, log, plan anotherVillage bal, planStatus 2, restore, planStatus 2, facility road 1 2 1 1 1, plan anotherVillage bal, step 2, planStatus 2, close
 
-
-Settlement& Simulation::getSettlement - maybe an issue
-
-
-
-
-
-
-
-
-
-
+PlanID: 0
+SettlementName:KfarSPL
+LifeQualityScore: 0
+EconomyScore: 0
+EnvironmentScore: 0
+PlanID: 1
+SettlementName: KiryatSPL
+LifeQualityScore: 0
+EconomyScore: 0
+EnvironmentScore: 0
+PlanID: 2
+SettlementName: anotherVillage
+LifeQualityScore: 1
+EconomyScore: 1
+EnvironmentScore: 1
 
 -------- Archive --------=
 Plan& Plan::operator=(const Plan& other){

@@ -18,23 +18,17 @@ Settlement& Settlement::operator=(const Settlement& other){
 // Getters
 const string& Settlement::getName() const {return name;}
 SettlementType Settlement::getType() const {return type;}
-int Settlement::getMaxCapacity() const{
-    switch (type){
-    case SettlementType::VILLAGE:
+const int Settlement::getMaxCapacity() const{
+    if (type == SettlementType::VILLAGE) {
         return 1;
-        break;
-    case SettlementType::CITY:
+    }
+    if (type == SettlementType::CITY){
         return 2;
-        break;
-    case SettlementType::METROPOLIS:
+    }
+    else{ 
         return 3;
-        break;
- 
-    default:
-        return -1;
     }
 }
-
 
 // Other Methods
 string Settlement::SettlementTypeToString (SettlementType s){
