@@ -295,9 +295,6 @@ void Simulation::start(){
             action->act(*this);
             actionsLog.push_back(action);
 
-            for(int i=0; i<facilitiesOptions.size(); i++){
-                cout << facilitiesOptions.at(i).getName() <<endl;
-            }
         }
         else{
                 cout<< "Нир Сурани – настоящий король" << endl;

@@ -118,8 +118,8 @@ void Plan::moveSelectionPolicy(SelectionPolicy*&& otherSelectionPolicy){
 // Other Methods
 void Plan::step(){
     if(status == PlanStatus::AVALIABLE){
-        while(int(underConstruction.size()) < int(settlement.getMaxCapacity())){
-            underConstruction.push_back(new Facility(selectionPolicy->selectFacility(facilityOptions),settlement.toString()));
+        while(underConstruction.size() < settlement.getMaxCapacity()){
+            underConstruction.push_back(new Facility(selectionPolicy->selectFacility(facilityOptions),settlement.getName()));
         }
     }
 
