@@ -16,10 +16,15 @@ void AddPlan::act(Simulation &simulation){
         std::cout<<BaseAction::getErrorMsg()<<std::endl;
     }
     else{
-        if(selectionPolicy == "nve"){simulation.addPlan(simulation.getSettlement(settlementName),new NaiveSelection());}
-        else if(selectionPolicy == "bal"){simulation.addPlan(simulation.getSettlement(settlementName),new BalancedSelection(0,0,0));} 
-        else if(selectionPolicy == "eco"){simulation.addPlan(simulation.getSettlement(settlementName),new EconomySelection());}
-        else if(selectionPolicy == "env"){simulation.addPlan(simulation.getSettlement(settlementName),new SustainabilitySelection());}
+        Settlement& curr = simulation.getSettlement(settlementName);
+        SelectionPolicy* selectionP = nullptr;
+        if(selectionPolicy == "nve"){selectionP = new NaiveSelection();}
+        else if(selectionPolicy == "bal"){selectionP = new BalancedSelection(0,0,0);} 
+        else if(selectionPolicy == "eco"){selectionP = new EconomySelection();}
+        else if(selectionPolicy == "env"){selectionP = new SustainabilitySelection();}
+        simulation.addPlan(curr,selectionP);
+        delete selectionP;
+        selectionP = nullptr;
         BaseAction::complete();
     }
 }

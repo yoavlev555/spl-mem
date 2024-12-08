@@ -11,7 +11,7 @@ Plan::Plan(const int planId, const Settlement &settlement, SelectionPolicy *sele
     economy_score = 0;
 }
 Plan::Plan(const Plan& other,Settlement& otherSettlement)
-:plan_id(other.plan_id),settlement(otherSettlement),status(other.status), facilityOptions(other.facilityOptions), life_quality_score(other.life_quality_score), environment_score(other.environment_score), economy_score(other.economy_score),facilities(vector<Facility*>()),underConstruction(vector<Facility*>()){
+:plan_id(other.plan_id),settlement(otherSettlement),status(other.status), facilityOptions(other.facilityOptions), life_quality_score(other.life_quality_score), environment_score(other.environment_score), economy_score(other.economy_score),facilities(),underConstruction(){
     selectionPolicy = other.selectionPolicy->clone();
 
     for (int i=0; i <int(other.facilities.size()); i++){
@@ -22,9 +22,10 @@ Plan::Plan(const Plan& other,Settlement& otherSettlement)
         underConstruction.push_back(other.underConstruction.at(i) -> clone());
     }
 }
+Plan::Plan(const int planId, const Settlement &settlement,SelectionPolicy *selectionPolicy, const vector<FacilityType> &facilityOptions,int lifeScore, int economyScore, int enviromentScore) 
+:plan_id(planId),settlement(settlement),selectionPolicy(selectionPolicy->clone()),status(PlanStatus::AVALIABLE), facilities(), underConstruction(),facilityOptions(facilityOptions), life_quality_score(0),economy_score(0), environment_score(0){}
 
-
-Plan::Plan(const Plan& other):plan_id(other.plan_id),settlement(other.settlement),status(other.status), facilityOptions(other.facilityOptions), life_quality_score(other.life_quality_score), environment_score(other.environment_score), economy_score(other.economy_score),facilities(vector<Facility*>()),underConstruction(vector<Facility*>()){
+Plan::Plan(const Plan& other):plan_id(other.plan_id),settlement(other.settlement),status(other.status), facilityOptions(other.facilityOptions), life_quality_score(other.life_quality_score), environment_score(other.environment_score), economy_score(other.economy_score),facilities(),underConstruction(){
    
     selectionPolicy = other.selectionPolicy->clone();
 
@@ -37,14 +38,18 @@ Plan::Plan(const Plan& other):plan_id(other.plan_id),settlement(other.settlement
     }
 }
 Plan::Plan(Plan&& other):plan_id(other.plan_id),settlement(other.settlement),facilityOptions(other.facilityOptions),status(other.status),life_quality_score(other.life_quality_score), economy_score(other.economy_score), environment_score(other.environment_score){
-    selectionPolicy = other.selectionPolicy;
-    other.selectionPolicy = nullptr;
-
-    facilities=other.facilities;
-    underConstruction=other.underConstruction;
-
-    other.facilities.clear();
-    other.underConstruction.clear();
+    for (int i = 0; i < int(other.facilities.size()) ; i++){
+        facilities.push_back(other.facilities[i]);
+        other.facilities.at(i) = nullptr;
+    }
+    for (int i = 0;  i < int(other.underConstruction.size()) ; i++){
+        underConstruction.push_back(other.underConstruction[i]);
+        other.underConstruction.at(i) = nullptr;
+    }
+        other.underConstruction.clear();
+        other.facilities.clear();
+        selectionPolicy=other.selectionPolicy;
+        other.selectionPolicy = nullptr;
 }
 
 // Destructor
@@ -52,11 +57,14 @@ Plan::~Plan(){
     delete selectionPolicy;
 
     for(int i=0; i < int(facilities.size()); i++){
+        if (facilities.at(i) != nullptr)
         delete facilities.at(i);
+        facilities.at(i) = nullptr;
     }
 
     for(int i=0; i < int(underConstruction.size()); i++){
         delete underConstruction.at(i);
+        underConstruction.at(i)= nullptr;
     }
 }
 
@@ -107,13 +115,14 @@ void Plan::moveSelectionPolicy(SelectionPolicy*&& otherSelectionPolicy){
 
 // Other Methods
 void Plan::step(){
-    if(status != PlanStatus::BUSY){
+    if(status == PlanStatus::AVALIABLE){
         while(int(underConstruction.size()) < int(settlement.getMaxCapacity())){
             underConstruction.push_back(new Facility(selectionPolicy->selectFacility(facilityOptions),settlement.toString()));
         }
     }
 
     status = PlanStatus::BUSY;
+    /*
     vector<Facility*>::iterator iter = underConstruction.begin();
     while(iter != underConstruction.end()){
         if((*iter)->step() == FacilityStatus::OPERATIONAL){
@@ -126,10 +135,24 @@ void Plan::step(){
         else{
             iter++;
         }
+    */
+
+    for (int i=0; i < int(underConstruction.size());){
+        FacilityStatus temp = underConstruction.at(i)->step();
+        if (temp == FacilityStatus::OPERATIONAL){
+            addFacility(underConstruction.at(i));
+            underConstruction.erase(underConstruction.begin() + i);
+        }
+        else{
+            i++;
+        }
     }
 
     if(int(underConstruction.size()) < int(settlement.getMaxCapacity())){
         status = PlanStatus::AVALIABLE;
+    }
+    else{
+        status = PlanStatus::BUSY;
     }
 }
 
@@ -159,6 +182,7 @@ void Plan::addFacility(Facility* facility){
 }
 
 void Plan::printStatus(){
+    string s;
     switch (status)
     {
     case PlanStatus::AVALIABLE:
